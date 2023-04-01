@@ -1,0 +1,37 @@
+#Bot (无多账号登录)
+Bot:
+  #是否开启密码加密
+  Encrypt: false
+  #账号
+  Account: 0
+  #密码
+  Password: 0
+  #使用协议 (可选协议: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH, IPAD, MACOS)
+  Protocol: "IPAD"
+  #设备信息存储位置
+  Devices: "devicesInfo.json"
+
+#设置
+Set:
+  #日期格式(作用变量: %date%)
+  DateFormat: "yyyy/MM/dd-HH:mm:ss"
+  #日志格式
+  LogFormat:
+    #可用变量:
+    #     %date% 日期(格式受Config.yml内的Set.DateFormat控制)
+    #     %groupName%   群聊名称
+    #     %groupId%     群聊号码
+    #     %name%        用户名称
+    #     %qq%          用户号码
+    #     %msg%         消息内容
+    #群聊
+    Group: "[%date%][群聊]%groupName%(%groupId%)-%name%(%qq%)>> %msg%"
+    #私聊
+    Private: "[%date%][私聊]%name%(%qq%)>> %msg%"
+    #临时消息
+    Temp: "[%date%][临时]%name%(%qq%)>> %msg%"
+
+#指令头
+#连接数据库之后会将此处的数据存入数据库(未找到表的或表为空的情况下)，以后的操作请在数据库进行添加、删除
+CommandHeads:
+  - "."

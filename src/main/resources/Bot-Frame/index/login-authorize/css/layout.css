@@ -1,0 +1,23 @@
+.content {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.content .display .show input {
+	margin-left: 3px;
+}
+
+.content .display .input {
+	margin-top: 10px;
+}
+
+.content .display .show span, .content .display .input span {
+	margin-right: 10px;
+}
+
+.content .display .buttons {
+	margin-top: 10px;
+}
