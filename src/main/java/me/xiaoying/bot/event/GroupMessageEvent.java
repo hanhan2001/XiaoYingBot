@@ -31,7 +31,7 @@ public class GroupMessageEvent extends GroupEvent {
     }
 
     public void sendMessage(String message) {
-        event.getGroup().sendMessage(MessageHandle.StringToContent(message));
+        this.event.getGroup().sendMessage(MessageHandle.StringToContent(message));
     }
 
     public Member getSender() {

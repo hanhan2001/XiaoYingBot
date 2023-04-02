@@ -6,11 +6,11 @@ import net.mamoe.mirai.internal.deps.io.ktor.client.plugins.Sender;
 public class GroupEvent extends Event {
     protected Sender sender;
     GroupMessageEvent event;
+    private static final HandlerList handlers = new HandlerList();
 
     public static HandlerList getHandlerList() {
         return handlers;
     }
-    private static final HandlerList handlers = new HandlerList();
 
     public GroupEvent(GroupMessageEvent event) {
         super();

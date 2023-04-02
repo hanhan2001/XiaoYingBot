@@ -1,6 +1,5 @@
 package me.xiaoying.bot.listener;
 
-import me.xiaoying.bot.cache.Caches;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.ListeningStatus;
 import net.mamoe.mirai.event.SimpleListenerHost;

@@ -14,13 +14,6 @@ import java.util.ArrayList;
 
 @Component
 public class MessageEvents extends SimpleListenerHost {
-//    @Autowired
-//    private CommandConfig commandConfig;
-//    @Autowired
-//    private KeyWordService keyWordService;
-
-//    Logger logger = XiaoYingBotApplication.getLogger();
-
     /**
      * 所有消息处理
      *
@@ -31,36 +24,9 @@ public class MessageEvents extends SimpleListenerHost {
     @NotNull
     @EventHandler
     public ListeningStatus onMessage(@NotNull MessageEvent event) throws Exception {
-//        Service.webSocket.send(SerializeUtil.serialize(event));
-//
-//        User sender = event.getSender();
-//        String oriMsg = event.getMessage().contentToString();
-//
-//        // 存储数据
-//        long userId = event.getSender().getId();
-//        UserObj userObj = new UserObj(userId);
-//        if (!userObj.isExists()) {
-//            MysqlGetter mysqlGetter = new MysqlImpl("data_common_user");
-//            String uuid = new DecimalFormat("000000000").format(mysqlGetter.getTableLineSize());
-//            mysqlGetter.insertString(String.valueOf(userId), uuid, "", "default", "0", "0", "0");
-//        }
-//
-//        // 是否指令模式
-//        if (!commandConfig.isCommand(oriMsg)) {
-//            keyWordService.keyWordMatche(event);
-//            return ListeningStatus.LISTENING;
-//        }
-//
-//        EverywhereCommand command = (EverywhereCommand) commandConfig.getCommand(oriMsg, CommandConfig.everywhereCommands);
-//        if (command == null) {
-//            return ListeningStatus.LISTENING;
-//        }
-//        //执行指令并回复结果
-//        Message result = command.execute(sender, getArgs(oriMsg), event.getMessage(), event.getSubject());
-//        if (result != null) {
-//            event.getSubject().sendMessage(result);
-//        }
-
+        XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.MessageEvent(event));
+        //事件拦截 防止everywhere消息事件再次处理
+        event.intercept();
         return ListeningStatus.LISTENING;
     }
 
@@ -89,41 +55,8 @@ public class MessageEvents extends SimpleListenerHost {
         System.out.println(log.replace("\n" , "     \n"));
 
         XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.GroupMessageEvent(event));
-
-//       Server.getPluginManager().callEvent(new GroupMessage(event));
-//        URL[] urls = new URL[]{new File(System.getProperty("user.dir") + "/bin/PluginLoader.jar").toURI().toURL()};
-//        URLClassLoader urlClassLoader = new URLClassLoader(urls);
-//        Class<?> className = urlClassLoader.loadClass("me.xiaoying.pl.PluginLoader");
-//        Object instance = className.newInstance();
-//
-//        // 实现方法
-//        Method method = className.getMethod("onEvent", event.getClass());
-//        method.invoke(instance, event);
-//        Member sender = event.getSender();
-//        Group group = sender.getGroup();
-//        String oriMsg = event.getMessage().contentToString();
-////
-////        // 输出日志
-//        LogUtil.groupLog(sender.getNick(), sender.getId(), group.getName(), group.getId(), String.valueOf(event.getMessage()));
-////
-////        //是否指令模式
-////        if (!commandConfig.isCommand(oriMsg)) {
-////            // 非指令处理其他业务
-////            //关键词响应
-////            return ListeningStatus.LISTENING;
-////        }
-////        GroupCommand command = (GroupCommand) commandConfig.getCommand(oriMsg, commandConfig.groupCommands);
-////        if (command == null) {
-////            return ListeningStatus.LISTENING;
-////        }
-////        //执行指令并回复结果
-////        Message result = command.execute(sender, getArgs(oriMsg), event.getMessage(), event.getSubject());
-////        if (result != null) {
-////            event.getSubject().sendMessage(result);
-////        }
-////        //事件拦截 防止公共消息事件再次处理
-////        event.intercept();
-
+        //事件拦截 防止everywhere消息事件再次处理
+        event.intercept();
         return ListeningStatus.LISTENING;
     }
 
@@ -144,30 +77,8 @@ public class MessageEvents extends SimpleListenerHost {
         log = log.replace("%qq%", String.valueOf(event.getSender().getId()));
         log = log.replace("%msg%", event.getMessage().contentToString());
         System.out.println(log.replace("\n" , "     \n"));
-//        Member sender = event.getSender();
-//
-//        String oriMsg = event.getMessage().contentToString();
-//
-//        // 输出日志
-//        LogUtil.tempLog(sender.getNick(), sender.getId(), String.valueOf(event.getMessage()));
-//
-//        // 是否指令模式
-//        if (!commandConfig.isCommand(oriMsg)) {
-//            return ListeningStatus.LISTENING;
-//        }
-//
-//        TempMessageCommand command = (TempMessageCommand) commandConfig.getCommand(oriMsg, commandConfig.tempMsgCommands);
-//        if (command == null) {
-//            return ListeningStatus.LISTENING;
-//        }
-//        //执行指令并回复结果
-//        Message result = command.execute(sender, getArgs(oriMsg), event.getMessage(), sender);
-//        if (result != null) {
-//            event.getSubject().sendMessage(result);
-//        }
-//        //事件拦截 防止公共消息事件再次处理
-//        event.intercept();
-
+        //事件拦截 防止公共消息事件再次处理
+        event.intercept();
         return ListeningStatus.LISTENING;
     }
 
@@ -181,35 +92,15 @@ public class MessageEvents extends SimpleListenerHost {
     @NotNull
     @EventHandler
     public ListeningStatus onFriendMessage(@NotNull FriendMessageEvent event) throws Exception {
-
         String log = FileConfig.SET_MESSAGE_LOG_PRIVATE;
         log = log.replace("%date%", DateUtil.date(FileConfig.SET_VARIABLE_DATA));
         log = log.replace("%name%", event.getSenderName());
         log = log.replace("%qq%", String.valueOf(event.getSender().getId()));
         log = log.replace("%msg%", event.getMessage().contentToString());
         System.out.println(log.replace("\n" , "     \n"));
-//        Friend sender = event.getSender();
-//        String oriMsg = event.getMessage().contentToString();
-//
-//        // 输出日志
-//        LogUtil.friendLog(sender.getNick(), sender.getId(), String.valueOf(event.getMessage()));
-//
-//        // 是否指令模式
-//        if (!commandConfig.isCommand(oriMsg)) {
-//            return ListeningStatus.LISTENING;
-//        }
-//        FriendCommand command = (FriendCommand) commandConfig.getCommand(oriMsg, commandConfig.friendCommands);
-//        if (command == null) {
-//            return ListeningStatus.LISTENING;
-//        }
-//        //执行指令并回复结果
-//        Message result = command.execute(sender, getArgs(oriMsg), event.getMessage(), event.getSubject());
-//        if (result != null) {
-//            event.getSubject().sendMessage(result);
-//        }
-//        //事件拦截 防止everywhere消息事件再次处理
-//        event.intercept();
-
+        XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.FriendMessageEvent(event.getUser(), event));
+        //事件拦截 防止everywhere消息事件再次处理
+        event.intercept();
         return ListeningStatus.LISTENING;
     }
 
