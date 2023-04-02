@@ -35,7 +35,7 @@ public class WebSocketHandle extends WebSocketServer {
             return;
 
         ConstantCommon.QQ_AUTHORIZE_TICKET = s.replace("confirm ", "");
-        Caches.threadCaches.get("thread-login-solver").stop();
+        Caches.threadCaches.get("thread-login-solver").interrupt();
     }
 
     @Override

@@ -33,7 +33,7 @@ public class MainUI extends Application {
         root.getChildren().add(web);
         Scene scene = new Scene(root);
 
-        primaryStage.getIcons().add(new Image(Objects.requireNonNull(MainUI.class.getResource("/images/QQ.png")).toString()));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(MainUI.class.getResource("/images/QQ.svg")).toString()));
         primaryStage.setScene(scene);
         primaryStage.setWidth(565);
         primaryStage.setHeight(288);
@@ -45,6 +45,17 @@ public class MainUI extends Application {
             public void handle(WindowEvent event) {
                 if (ConstantCommon.QQ_AUTHORIZE_TICKET.isEmpty())
                     primaryStage.show();
+            }
+        });
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                try {
+                    stop();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
