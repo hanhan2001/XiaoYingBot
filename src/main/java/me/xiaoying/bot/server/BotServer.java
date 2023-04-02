@@ -68,12 +68,6 @@ public class BotServer implements Server {
 
     @Override
     public void reload() {
-        Plugin[] plugins = pluginManager.getPlugins();
-        for (Plugin plugin : plugins) {
-            HandlerList.unregisterAll(plugin);
-            InfoUtil.sendMessage("Disabled plugin " + plugin.getName() + " " + plugin.getDescription().getVersion() + " by " + plugin.getDescription().getAuthors());
-            plugin.onDisable();
-        }
         pluginManager.clearPlugins();
         loadPlugins();
         enablePlugins();
