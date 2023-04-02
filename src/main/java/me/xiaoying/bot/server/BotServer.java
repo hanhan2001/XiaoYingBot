@@ -74,9 +74,9 @@ public class BotServer implements Server {
             InfoUtil.sendMessage("Disabled plugin " + plugin.getName() + " " + plugin.getDescription().getVersion() + " by " + plugin.getDescription().getAuthors());
             plugin.onDisable();
         }
-        for (Plugin plugin : plugins) {
-            plugin.onEnable();
-        }
+        pluginManager.clearPlugins();
+        loadPlugins();
+        enablePlugins();
     }
 
     @Override

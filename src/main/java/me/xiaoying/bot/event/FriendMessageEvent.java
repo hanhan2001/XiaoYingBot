@@ -16,10 +16,6 @@ public class FriendMessageEvent extends FriendEvent {
         this.event = event;
     }
 
-    private void init(net.mamoe.mirai.event.events.FriendMessageEvent event) {
-        this.event = event;
-    }
-
     public String getMessage() {
         return this.event.getMessage().contentToString();
     }

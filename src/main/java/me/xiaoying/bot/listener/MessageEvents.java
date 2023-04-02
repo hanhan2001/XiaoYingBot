@@ -25,8 +25,6 @@ public class MessageEvents extends SimpleListenerHost {
     @EventHandler
     public ListeningStatus onMessage(@NotNull MessageEvent event) throws Exception {
         XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.MessageEvent(event));
-        //事件拦截 防止everywhere消息事件再次处理
-        event.intercept();
         return ListeningStatus.LISTENING;
     }
 
@@ -98,6 +96,8 @@ public class MessageEvents extends SimpleListenerHost {
         log = log.replace("%qq%", String.valueOf(event.getSender().getId()));
         log = log.replace("%msg%", event.getMessage().contentToString());
         System.out.println(log.replace("\n" , "     \n"));
+
+
         XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.FriendMessageEvent(event.getUser(), event));
         //事件拦截 防止everywhere消息事件再次处理
         event.intercept();
