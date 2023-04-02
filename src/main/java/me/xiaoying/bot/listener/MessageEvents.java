@@ -52,6 +52,11 @@ public class MessageEvents extends SimpleListenerHost {
         log = log.replace("%msg%", event.getMessage().contentToString());
         System.out.println(log.replace("\n" , "     \n"));
 
+        if (event.getMessage().contentToString().startsWith(".")) {
+            
+            return ListeningStatus.LISTENING;
+        }
+
         XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.GroupMessageEvent(event));
         //事件拦截 防止everywhere消息事件再次处理
         event.intercept();

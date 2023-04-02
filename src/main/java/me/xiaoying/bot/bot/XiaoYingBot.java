@@ -1,7 +1,6 @@
 package me.xiaoying.bot.bot;
 
 import me.xiaoying.bot.api.XiaoLoginSolver;
-import me.xiaoying.bot.api.XiaoYingLogger;
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.file.FileConfig;
 import me.xiaoying.bot.listener.BotEvents;
@@ -61,9 +60,9 @@ public class XiaoYingBot {
                 fileBasedDeviceInfo(deviceInfo);
                 setLoginSolver(new XiaoLoginSolver());
                 // 取消日志
-//                noBotLog();
-//                noNetworkLog();
-                setBotLoggerSupplier(bot -> new XiaoYingLogger());
+                noBotLog();
+                noNetworkLog();
+//                setBotLoggerSupplier(bot -> new XiaoYingLogger());
                 // 协议选择
                 switch (FileConfig.BOT_PROTOCOl) {
                     case "ANDROID_PHONE": {

@@ -1,5 +1,7 @@
 package me.xiaoying.bot.plugin;
 
+import me.xiaoying.bot.command.CommandExecutor;
+import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.server.Server;
 import me.xiaoying.bot.utils.InfoUtil;
@@ -19,6 +21,7 @@ public class JavaPlugin extends PluginBase {
     private Server server = null;
     private JavaPluginLoader loader;
     private PluginDescriptionFile description;
+    private PluginCommand pluginCommand;
     private File configFile = null;
     private File file;
     private File dataFolder;
@@ -113,7 +116,7 @@ public class JavaPlugin extends PluginBase {
         try {
             if (!outFile.exists() || replace) {
                 OutputStream out = Files.newOutputStream(outFile.toPath());
-                byte[] buf = new byte[1024];
+                byte[] buf = new byte[in.available()];
                 int len;
                 while ((len = in.read(buf)) > 0) {
                     out.write(buf, 0, len);
@@ -142,6 +145,11 @@ public class JavaPlugin extends PluginBase {
     @Override
     public PluginLoader getPluginLoader() {
         return this.loader;
+    }
+
+    @Override
+    public PluginCommand getPluginCommand(String command) {
+        return getServer().getPluginCommand(command);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package me.xiaoying.bot.plugin;
 
+import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.server.Server;
 
 import java.io.File;
@@ -20,6 +21,8 @@ public interface Plugin {
     void reloadConfig();
 
     PluginLoader getPluginLoader();
+
+    PluginCommand getPluginCommand(String command);
 
     boolean isEnabled();
 
