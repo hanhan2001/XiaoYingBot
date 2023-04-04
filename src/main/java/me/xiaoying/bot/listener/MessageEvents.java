@@ -1,6 +1,11 @@
 package me.xiaoying.bot.listener;
 
 import me.xiaoying.bot.XiaoYingBotApplication;
+import me.xiaoying.bot.api.XiaoYing;
+import me.xiaoying.bot.command.Command;
+import me.xiaoying.bot.command.CommandExecutor;
+import me.xiaoying.bot.command.PluginCommand;
+import me.xiaoying.bot.entity.CommandSender;
 import me.xiaoying.bot.file.FileConfig;
 import me.xiaoying.bot.utils.*;
 import net.mamoe.mirai.event.EventHandler;
@@ -11,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class MessageEvents extends SimpleListenerHost {
@@ -52,10 +59,20 @@ public class MessageEvents extends SimpleListenerHost {
         log = log.replace("%msg%", event.getMessage().contentToString());
         System.out.println(log.replace("\n" , "     \n"));
 
-        if (event.getMessage().contentToString().startsWith(".")) {
-            
-            return ListeningStatus.LISTENING;
-        }
+//        if (event.getMessage().contentToString().startsWith(".")) {
+//            String message = event.getMessage().contentToString();
+//            String cmd = StringUtil.removeSomeString(message, 0);
+//            String[] cmds = cmd.split(" ");
+//
+//            List<String> list = new ArrayList<>(Arrays.asList(cmds).subList(1, cmds.length));
+//            String[] args = list.toArray(new String[0]);
+//
+//            PluginCommand pluginCommand;
+//            if ((pluginCommand = XiaoYing.getServer().getPluginCommand(cmds[0])) == null)
+//                return ListeningStatus.LISTENING;
+//            pluginCommand.getExecutor().onCommand(new CommandSender(event.getSenderName(), event.getSender().getId()), new Command(cmds[0]), args);
+//            return ListeningStatus.LISTENING;
+//        }
 
         XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.GroupMessageEvent(event));
         //事件拦截 防止everywhere消息事件再次处理
@@ -73,7 +90,6 @@ public class MessageEvents extends SimpleListenerHost {
     @NotNull
     @EventHandler
     public ListeningStatus onTempMessage(@NotNull TempMessageEvent event) throws Exception {
-
         String log = FileConfig.SET_MESSAGE_LOG_TEMP;
         log = log.replace("%date%", DateUtil.date(FileConfig.SET_VARIABLE_DATA));
         log = log.replace("%name%", event.getSenderName());
