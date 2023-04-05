@@ -1,29 +1,42 @@
 package me.xiaoying.bot.command;
 
+import me.xiaoying.bot.plugin.Plugin;
+
 import java.util.List;
 
+/**
+ * 命令 命令
+ */
 public class Command {
-    private String name;
-    private List<String> aliases;
+    String name;
+    List<String> alias;
+    CommandExecutor executor;
 
-    public Command() {
+    public Command(String name, CommandExecutor executor) {
+        this.name = name;
+        this.alias = null;
+        this.executor = executor;
     }
 
-    public Command(String name) {
+    public Command(String name, List<String> alias, CommandExecutor executor) {
         this.name = name;
-        this.aliases = null;
-    }
-
-    public Command(String name, List<String> aliases) {
-        this.name = name;
-        this.aliases = aliases;
+        this.alias = alias;
+        this.executor = executor;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<String> getAliases() {
-        return aliases;
+    public List<String> getAlias() {
+        return alias;
+    }
+
+    public void setExecutor(CommandExecutor executor) {
+        this.executor = executor;
+    }
+
+    public CommandExecutor getExecutor() {
+        return this.executor;
     }
 }

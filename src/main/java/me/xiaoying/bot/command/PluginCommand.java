@@ -1,34 +1,30 @@
 package me.xiaoying.bot.command;
 
-import me.xiaoying.bot.plugin.Plugin;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class PluginCommand extends Command {
-    public static Map<PluginCommand, List<Command>> pluginCommandList = new HashMap<>();
-    private Plugin owningPlugin;
-    private CommandExecutor executor;
+/**
+ * 命令
+ */
+public class PluginCommand {
+    private Map<String, Command> commandMap = new HashMap<>();
 
-    public PluginCommand(String name) {
-        super(name);
+    public Command getCommand(String name) {
+        return this.commandMap.get(name);
     }
 
-    protected PluginCommand(CommandExecutor executor, Plugin plugin) {
-        this.executor = executor;
-        this.owningPlugin = plugin;
+    public void register(String name, Command command) {
+        commandMap.put(name, command);
     }
 
-    public Plugin getPlugin() {
-        return this.owningPlugin;
+    public void unregister(String name) {
+        if (this.commandMap.get(name) == null)
+            return;
+
+        this.commandMap.remove(name);
     }
 
-    public CommandExecutor getExecutor() {
-        return this.executor;
-    }
-
-    public void setExecutor(CommandExecutor executor) {
-        this.executor = executor;
+    public void unregisterAll() {
+        this.commandMap.clear();
     }
 }

@@ -1,20 +1,26 @@
 package me.xiaoying.bot.event;
 
+import me.xiaoying.bot.entity.Group;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.internal.deps.io.ktor.client.plugins.Sender;
 
 public class GroupEvent extends Event {
     protected Sender sender;
-    GroupMessageEvent event;
+
+    Group group;
+
     private static final HandlerList handlers = new HandlerList();
 
     public static HandlerList getHandlerList() {
         return handlers;
     }
 
-    public GroupEvent(GroupMessageEvent event) {
-        super();
-        this.event = event;
+    public GroupEvent(Group group) {
+        this.group = group;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     @Override

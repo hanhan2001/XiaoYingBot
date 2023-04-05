@@ -1,37 +1,44 @@
 package me.xiaoying.bot.event;
 
+import me.xiaoying.bot.api.XiaoYing;
+import me.xiaoying.bot.bot.XiaoYingBot;
 import me.xiaoying.bot.entity.Member;
 import me.xiaoying.bot.handle.MessageHandle;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.*;
 
+import java.util.Date;
+import java.util.Objects;
+
 public class GroupMessageEvent extends GroupEvent {
     Member member;
+    MessageChain message;
 
-    public GroupMessageEvent(net.mamoe.mirai.event.events.GroupMessageEvent event) {
-        super(event);
-        member = new Member(event.getSenderName(), event.getSender().getId());
+    public GroupMessageEvent(me.xiaoying.bot.entity.Group group, Member member, MessageChain message) {
+        super(group);
+        this.member = member;
+        this.message = message;
     }
 
     public MessageChain getMessageChain() {
-        return this.event.getMessage();
+        return this.message;
     }
 
     public String getMessage() {
-        return this.event.getMessage().contentToString();
+        return this.message.contentToString();
     }
 
-    public Group getGroup() {
-        return this.event.getGroup();
+    public me.xiaoying.bot.entity.Group getGroup() {
+        return this.group;
     }
 
-    public Bot getBot() {
-        return this.event.getBot();
-    }
+//    public Bot getBot() {
+//        return this.;
+//    }
 
     public void sendMessage(String message) {
-        this.event.getGroup().sendMessage(MessageHandle.StringToContent(message));
+        Objects.requireNonNull(XiaoYingBot.getBot().getGroup(this.group.getId())).sendMessage(MessageHandle.StringToContent(message));
     }
 
     public Member getSender() {
@@ -39,14 +46,14 @@ public class GroupMessageEvent extends GroupEvent {
     }
 
     public OnlineMessageSource.Incoming.FromGroup getSource() {
-        return this.event.getSource();
+        return (OnlineMessageSource.Incoming.FromGroup) XiaoYingBot.getBot().getGroup(this.group.getId());
     }
 
     public Group getSubject() {
-        return this.event.getSubject();
+        return XiaoYingBot.getBot().getGroup(this.group.getId());
     }
 
     public int getTime() {
-        return this.event.getTime();
+        return (int) (new Date().getTime());
     }
 }

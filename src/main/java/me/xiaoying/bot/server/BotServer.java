@@ -1,7 +1,5 @@
 package me.xiaoying.bot.server;
 
-import me.xiaoying.bot.command.Command;
-import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.plugin.*;
 import me.xiaoying.bot.utils.InfoUtil;
@@ -9,9 +7,7 @@ import me.xiaoying.bot.utils.SystemUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -19,7 +15,6 @@ import java.util.logging.Logger;
  */
 public class BotServer implements Server {
     private final PluginManager pluginManager = new SimplePluginManager(this);
-    private final Map<String, PluginCommand> pluginCommand = new HashMap<>();
 
     public void enablePlugins() {
         Plugin[] plugins = this.pluginManager.getPlugins();
@@ -57,11 +52,6 @@ public class BotServer implements Server {
             try {
                 String message = String.format("Loading %s %s by %s", plugin.getDescription().getName(), plugin.getDescription().getVersion(), plugin.getDescription().getAuthors());
                 InfoUtil.sendMessage(message);
-                List<Command> commands = plugin.getDescription().getCommands();
-                commands.forEach(command -> {
-                    pluginCommand.put(command.getName(), null);
-                    command.getAliases().forEach(string -> pluginCommand.put(string, null));
-                });
 
                 plugin.onLoad();
             } catch (Throwable ex) {
@@ -87,11 +77,6 @@ public class BotServer implements Server {
     @Override
     public Logger getLogger() {
         return Logger.getLogger("BotServer");
-    }
-
-    @Override
-    public PluginCommand getPluginCommand(@NotNull String command) {
-        return this.pluginCommand.get(command);
     }
 
     @Override

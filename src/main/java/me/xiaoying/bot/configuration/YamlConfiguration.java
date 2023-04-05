@@ -147,8 +147,8 @@ public class YamlConfiguration implements FileGetter {
 
         int brackets = 0;
         String content = Objects.requireNonNull(this.get(key)).toString();
-        content = StringUtil.removeSomeString(content, 1);
-        content = StringUtil.removeSomeString(content, content.length());
+        content = StringUtil.removeSomeString(content, 0);
+        content = StringUtil.removeSomeString(content, content.length() - 1);
         String[] strings = content.split(", ");
         for (String string : strings) {
             if (string.contains("{")) {
@@ -196,8 +196,8 @@ public class YamlConfiguration implements FileGetter {
             FileInputStream fileInputStream = new FileInputStream(file);
             properties = yaml.loadAs(fileInputStream, HashMap.class);
             String content = String.valueOf(properties);
-            content = StringUtil.removeSomeString(content, 1);
-            content = StringUtil.removeSomeString(content, content.length());
+            content = StringUtil.removeSomeString(content, 0);
+            content = StringUtil.removeSomeString(content, content.length() - 1);
             String[] strings = content.split(", ");
             for (String string : strings) {
                 if (string.contains("{")) {

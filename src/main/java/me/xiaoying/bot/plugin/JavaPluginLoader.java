@@ -1,8 +1,6 @@
 package me.xiaoying.bot.plugin;
 
-import me.xiaoying.bot.api.XiaoYing;
 import me.xiaoying.bot.cache.Caches;
-import me.xiaoying.bot.command.Command;
 import me.xiaoying.bot.configuration.YamlConfiguration;
 import me.xiaoying.bot.configuration.serialization.ConfigurationSerializable;
 import me.xiaoying.bot.configuration.serialization.ConfigurationSerialization;
@@ -78,21 +76,14 @@ public class JavaPluginLoader implements PluginLoader {
         if (pluginConfig.getStringList("authors") != null)
             authors.addAll(pluginConfig.getStringList("authors"));
 
-        List<String> command = new ArrayList<>();
-        if (pluginConfig.getChildrenNode("commands") != null)
-            command = new ArrayList<>(Arrays.asList(pluginConfig.getChildrenNode("commands").toArray(new String[0])));
+        List<String> command;
+        try {
+            command = new ArrayList<>(pluginConfig.getChildrenNode("commands"));
+        } catch (Exception e) {
+            command = new ArrayList<>();
+        }
 
-        List<Command> commands = new ArrayList<>();
-        command.forEach(string -> {
-            List<String> aliases = new ArrayList<>();
-            if (pluginConfig.getString("commands." + string + ".alias") != null)
-                aliases.add(string);
-
-            if (pluginConfig.getStringList("commands." + string + ".aliases") != null)
-                aliases = pluginConfig.getStringList("commands." + string + ".aliases");
-            commands.add(new Command(string, aliases));
-        });
-        return new PluginDescriptionFile(name, version, authors, commands, main);
+        return new PluginDescriptionFile(name, version, authors, main);
     }
 
     @Override
@@ -222,6 +213,7 @@ public class JavaPluginLoader implements PluginLoader {
                 jPlugin.setEnabled(true);
             } catch (Throwable ex) {
                 InfoUtil.sendMessage(InfoType.WARING, "Error occurred while enabling " + plugin.getDescription().getName() + " (Is it up to date?)\n" + ex.getMessage());
+                ex.printStackTrace();
             }
 
 

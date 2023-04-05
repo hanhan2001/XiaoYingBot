@@ -1,6 +1,5 @@
 package me.xiaoying.bot.plugin;
 
-import me.xiaoying.bot.command.CommandExecutor;
 import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.server.Server;
@@ -21,7 +20,7 @@ public class JavaPlugin extends PluginBase {
     private Server server = null;
     private JavaPluginLoader loader;
     private PluginDescriptionFile description;
-    private PluginCommand pluginCommand;
+    private PluginCommand pluginCommand = new PluginCommand();
     private File configFile = null;
     private File file;
     private File dataFolder;
@@ -148,11 +147,6 @@ public class JavaPlugin extends PluginBase {
     }
 
     @Override
-    public PluginCommand getPluginCommand(String command) {
-        return getServer().getPluginCommand(command);
-    }
-
-    @Override
     public boolean isEnabled() {
         return this.isEnabled;
     }
@@ -165,6 +159,11 @@ public class JavaPlugin extends PluginBase {
     @Override
     public void onLoad() {
 
+    }
+
+    @Override
+    public PluginCommand getPluginCommand() {
+        return this.pluginCommand;
     }
 
     @Override

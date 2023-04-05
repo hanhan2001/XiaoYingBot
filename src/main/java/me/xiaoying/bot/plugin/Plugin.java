@@ -22,14 +22,13 @@ public interface Plugin {
 
     PluginLoader getPluginLoader();
 
-    PluginCommand getPluginCommand(String command);
-
     boolean isEnabled();
 
     void onEnable();
     void onDisable();
     void onLoad();
 
+    PluginCommand getPluginCommand();
 
     boolean isNaggable();
 

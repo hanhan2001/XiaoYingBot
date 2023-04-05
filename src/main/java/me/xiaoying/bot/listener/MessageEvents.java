@@ -2,11 +2,11 @@ package me.xiaoying.bot.listener;
 
 import me.xiaoying.bot.XiaoYingBotApplication;
 import me.xiaoying.bot.api.XiaoYing;
-import me.xiaoying.bot.command.Command;
-import me.xiaoying.bot.command.CommandExecutor;
-import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.entity.CommandSender;
+import me.xiaoying.bot.entity.Group;
+import me.xiaoying.bot.entity.Member;
 import me.xiaoying.bot.file.FileConfig;
+import me.xiaoying.bot.plugin.Plugin;
 import me.xiaoying.bot.utils.*;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.ListeningStatus;
@@ -59,22 +59,23 @@ public class MessageEvents extends SimpleListenerHost {
         log = log.replace("%msg%", event.getMessage().contentToString());
         System.out.println(log.replace("\n" , "     \n"));
 
-//        if (event.getMessage().contentToString().startsWith(".")) {
-//            String message = event.getMessage().contentToString();
-//            String cmd = StringUtil.removeSomeString(message, 0);
-//            String[] cmds = cmd.split(" ");
-//
-//            List<String> list = new ArrayList<>(Arrays.asList(cmds).subList(1, cmds.length));
-//            String[] args = list.toArray(new String[0]);
-//
-//            PluginCommand pluginCommand;
-//            if ((pluginCommand = XiaoYing.getServer().getPluginCommand(cmds[0])) == null)
-//                return ListeningStatus.LISTENING;
-//            pluginCommand.getExecutor().onCommand(new CommandSender(event.getSenderName(), event.getSender().getId()), new Command(cmds[0]), args);
-//            return ListeningStatus.LISTENING;
-//        }
+        if (event.getMessage().contentToString().startsWith(".")) {
+            System.out.println("123");
+            String command = StringUtil.removeSomeString(event.getMessage().contentToString(), 0);
+            String[] args;
+            List<String> list = new ArrayList<>(Arrays.asList(command.split(" ")).subList(1, command.split(" ").length));
+            args = list.toArray(new String[0]);
+            for (Plugin plugin : XiaoYing.getServer().getPluginManager().getPlugins()) {
+                plugin.getPluginCommand().getCommand(command).getExecutor().onCommand(
+                        new CommandSender(
+                                event.getSenderName(),
+                                event.getSender().getId(),
+                                new Group(event.getGroup())
+                        ), plugin.getPluginCommand().getCommand(command), args);
+            }
+        }
 
-        XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.GroupMessageEvent(event));
+        XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.GroupMessageEvent(new Group(event.getGroup()), new Member(event.getSenderName(), event.getSender().getId()), event.getMessage()));
         //事件拦截 防止everywhere消息事件再次处理
         event.intercept();
         return ListeningStatus.LISTENING;
