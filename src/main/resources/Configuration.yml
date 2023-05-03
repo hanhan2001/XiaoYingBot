@@ -6,6 +6,9 @@ Bot:
   Account: 0
   #密码
   Password: 0
+  #登录方式方式 (可选方式: PASSWORD(密码), QRCODE(扫码))
+  #选用扫码登录后可不填写密码
+  AuthorizeType: "password"
   #使用协议 (可选协议: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH, IPAD, MACOS)
   Protocol: "IPAD"
   #设备信息存储位置
@@ -32,6 +35,5 @@ Set:
     Temp: "[%date%][临时]%name%(%qq%)>> %msg%"
 
 #指令头
-#连接数据库之后会将此处的数据存入数据库(未找到表的或表为空的情况下)，以后的操作请在数据库进行添加、删除
 CommandHeads:
   - "."

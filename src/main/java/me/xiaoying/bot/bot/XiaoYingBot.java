@@ -9,6 +9,7 @@ import me.xiaoying.bot.utils.EncryptUtil;
 import me.xiaoying.bot.utils.InfoUtil;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
+import net.mamoe.mirai.auth.BotAuthorization;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.ListenerHost;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -43,7 +44,7 @@ public class XiaoYingBot {
 
     // 启动Bot
     public void startBot() {
-        if (0 == account || null == password) {
+        if (FileConfig.BOT_AUTHORIZE.equalsIgnoreCase("password") && (0 == account || null == password)) {
             InfoUtil.sendMessage(InfoType.WARING, "账号或密码为空！！");
             System.exit(0);
         }
@@ -54,46 +55,52 @@ public class XiaoYingBot {
             InfoUtil.sendMessage("解密密码完成");
         }
 
-        bot = BotFactory.INSTANCE.newBot(account, password, new BotConfiguration() {
-            {
-                // 保存设备信息到文件deviceInfo.json文件里相当于是个设备认证信息
-                fileBasedDeviceInfo(deviceInfo);
-                setLoginSolver(new XiaoLoginSolver());
-                // 取消日志
-                noBotLog();
-                noNetworkLog();
-//                setBotLoggerSupplier(bot -> new XiaoYingLogger());
-                // 协议选择
-                switch (FileConfig.BOT_PROTOCOl) {
-                    case "ANDROID_PHONE": {
-                        setProtocol(MiraiProtocol.ANDROID_PHONE);
-                        break;
-                    }
-                    case "ANDROID_PAD": {
-                        setProtocol(MiraiProtocol.ANDROID_PAD);
-                        break;
-                    }
-                    case "ANDROID_WATCH": {
-                        setProtocol(MiraiProtocol.ANDROID_WATCH);
-                        break;
-                    }
-                    case "IPAD": {
-                        setProtocol(MiraiProtocol.IPAD);
-                        break;
-                    }
-                    case "MACOS": {
-                        setProtocol(MiraiProtocol.MACOS);
-                        break;
-                    }
-                    default: {
-                        InfoUtil.sendMessage(InfoType.WARING, "错误的协议！！！请更换设备协议！！！");
-                        System.exit(0);
-                    }
-                }
-                InfoUtil.sendMessage("使用协议: " + FileConfig.BOT_PROTOCOl);
-            }
-        });
+        switch (FileConfig.BOT_AUTHORIZE.toUpperCase()) {
+            case "PASSWORD":
+                bot = BotFactory.INSTANCE.newBot(account, password, new BotConfiguration());
+                break;
+            case "QRCODE":
+                bot = BotFactory.INSTANCE.newBot(account, BotAuthorization.byQRCode(), new BotConfiguration());
+                break;
+        }
 
+        // 保存设备信息到文件deviceInfo.json文件里相当于是个设备认证信息
+        bot.getConfiguration().fileBasedDeviceInfo(deviceInfo);
+        bot.getConfiguration().setLoginSolver(new XiaoLoginSolver());
+
+        // 取消日志
+        bot.getConfiguration().noBotLog();
+        bot.getConfiguration().noNetworkLog();
+
+        // 协议选择
+        switch (FileConfig.BOT_PROTOCOl) {
+            case "ANDROID_PHONE": {
+                bot.getConfiguration().setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PHONE);
+                break;
+            }
+            case "ANDROID_PAD": {
+                bot.getConfiguration().setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PAD);
+                break;
+            }
+            case "ANDROID_WATCH": {
+                bot.getConfiguration().setProtocol(BotConfiguration.MiraiProtocol.ANDROID_WATCH);
+                break;
+            }
+            case "IPAD": {
+                bot.getConfiguration().setProtocol(BotConfiguration.MiraiProtocol.IPAD);
+                break;
+            }
+            case "MACOS": {
+                bot.getConfiguration().setProtocol(BotConfiguration.MiraiProtocol.MACOS);
+                break;
+            }
+            default: {
+                InfoUtil.sendMessage(InfoType.WARING, "错误的协议！！！请更换设备协议！！！");
+                System.exit(0);
+            }
+        }
+
+        InfoUtil.sendMessage("使用协议: " + FileConfig.BOT_PROTOCOl);
         InfoUtil.sendMessage("开始尝试登录");
         bot.login();
         InfoUtil.sendMessage(bot.getBot().getId() + " 已登录");
