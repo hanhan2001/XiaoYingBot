@@ -105,7 +105,6 @@ public class XiaoLoginSolver extends LoginSolver implements QRCodeLoginListener 
 
     @Override
     public void onFetchQRCode(@NotNull Bot bot, @NotNull byte[] bytes) {
-        System.out.println(123123123);
         try {
             OutputStream outputStream = Files.newOutputStream(Paths.get("C:/Users/Administrator/Desktop/123.png"));
             outputStream.write(bytes, 0, bytes.length);
