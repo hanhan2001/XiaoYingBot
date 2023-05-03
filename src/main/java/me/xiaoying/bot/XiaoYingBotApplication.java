@@ -26,8 +26,6 @@ public class XiaoYingBotApplication {
         webSocketHandle.start();
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         XiaoYingBot xiaoYingBot = context.getBean(XiaoYingBot.class);
-//        SpringApplication application = new SpringApplication(XiaoYingBotApplication.class);
-//        application.run();
         xiaoYingBot.startBot();
     }
 

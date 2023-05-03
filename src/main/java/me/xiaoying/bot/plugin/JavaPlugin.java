@@ -1,5 +1,8 @@
 package me.xiaoying.bot.plugin;
 
+import me.xiaoying.bot.api.XiaoYing;
+import me.xiaoying.bot.command.Command;
+import me.xiaoying.bot.command.CommandExecutor;
 import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.server.Server;
@@ -13,6 +16,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
+import java.util.List;
 
 public class JavaPlugin extends PluginBase {
     private boolean isEnabled = false;
@@ -20,7 +24,6 @@ public class JavaPlugin extends PluginBase {
     private Server server = null;
     private JavaPluginLoader loader;
     private PluginDescriptionFile description;
-    private PluginCommand pluginCommand = new PluginCommand();
     private File configFile = null;
     private File file;
     private File dataFolder;
@@ -162,8 +165,28 @@ public class JavaPlugin extends PluginBase {
     }
 
     @Override
-    public PluginCommand getPluginCommand() {
-        return this.pluginCommand;
+    public PluginCommand getCommand(String name) {
+        return XiaoYing.getServer().getPluginCommand().getCommand(name, this);
+    }
+
+    @Override
+    public void registerCommand(String command) {
+        XiaoYing.getServer().getPluginCommand().register(new Command(command, null), null, this);
+    }
+
+    @Override
+    public void registerCommand(String command, CommandExecutor executor) {
+        XiaoYing.getServer().getPluginCommand().register(new Command(command, null), executor, this);
+    }
+
+    @Override
+    public void registerCommand(String command, List<String> alias) {
+        XiaoYing.getServer().getPluginCommand().register(new Command(command, alias), this);
+    }
+
+    @Override
+    public void registerCommand(String command, List<String> alias, CommandExecutor executor) {
+        XiaoYing.getServer().getPluginCommand().register(new Command(command, alias), executor, this);
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.xiaoying.bot.listener;
 
 import me.xiaoying.bot.XiaoYingBotApplication;
 import me.xiaoying.bot.api.XiaoYing;
+import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.entity.CommandSender;
 import me.xiaoying.bot.entity.Group;
 import me.xiaoying.bot.entity.Member;
@@ -60,18 +61,19 @@ public class MessageEvents extends SimpleListenerHost {
         System.out.println(log.replace("\n" , "     \n"));
 
         if (event.getMessage().contentToString().startsWith(".")) {
-            System.out.println("123");
             String command = StringUtil.removeSomeString(event.getMessage().contentToString(), 0);
+            String cmd = command.split(" ")[0];
             String[] args;
             List<String> list = new ArrayList<>(Arrays.asList(command.split(" ")).subList(1, command.split(" ").length));
             args = list.toArray(new String[0]);
             for (Plugin plugin : XiaoYing.getServer().getPluginManager().getPlugins()) {
-                plugin.getPluginCommand().getCommand(command).getExecutor().onCommand(
-                        new CommandSender(
-                                event.getSenderName(),
-                                event.getSender().getId(),
-                                new Group(event.getGroup())
-                        ), plugin.getPluginCommand().getCommand(command), args);
+                if (XiaoYing.getServer().getPluginCommand().getCommand(cmd, plugin) == null)
+                    continue;
+
+                XiaoYing.getServer().getPluginCommand().getCommand(cmd, plugin).getExecutor().onCommand(new CommandSender(
+                        event.getSenderName(),
+                        event.getSender().getId(),
+                        new Group(event.getGroup())), XiaoYing.getServer().getPluginCommand().getCommand(cmd, plugin).getCommand(), args);
             }
         }
 

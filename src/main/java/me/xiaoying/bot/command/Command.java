@@ -8,20 +8,17 @@ import java.util.List;
  * 命令 命令
  */
 public class Command {
-    String name;
-    List<String> alias;
-    CommandExecutor executor;
+    private final String name;
+    private final List<String> alias;
 
-    public Command(String name, CommandExecutor executor) {
+    public Command(String name) {
         this.name = name;
         this.alias = null;
-        this.executor = executor;
     }
 
-    public Command(String name, List<String> alias, CommandExecutor executor) {
+    public Command(String name, List<String> alias) {
         this.name = name;
         this.alias = alias;
-        this.executor = executor;
     }
 
     public String getName() {
@@ -30,13 +27,5 @@ public class Command {
 
     public List<String> getAlias() {
         return alias;
-    }
-
-    public void setExecutor(CommandExecutor executor) {
-        this.executor = executor;
-    }
-
-    public CommandExecutor getExecutor() {
-        return this.executor;
     }
 }

@@ -1,9 +1,12 @@
 package me.xiaoying.bot.plugin;
 
+import me.xiaoying.bot.command.Command;
+import me.xiaoying.bot.command.CommandExecutor;
 import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.server.Server;
 
 import java.io.File;
+import java.util.List;
 
 public interface Plugin {
     File getDataFolder();
@@ -28,7 +31,11 @@ public interface Plugin {
     void onDisable();
     void onLoad();
 
-    PluginCommand getPluginCommand();
+    PluginCommand getCommand(String name);
+    void registerCommand(String command);
+    void registerCommand(String command, CommandExecutor executor);
+    void registerCommand(String command, List<String> alias);
+    void registerCommand(String command, List<String> alias, CommandExecutor executor);
 
     boolean isNaggable();
 

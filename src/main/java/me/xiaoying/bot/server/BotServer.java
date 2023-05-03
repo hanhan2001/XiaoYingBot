@@ -1,13 +1,12 @@
 package me.xiaoying.bot.server;
 
+import me.xiaoying.bot.command.SimpleCommand;
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.plugin.*;
 import me.xiaoying.bot.utils.InfoUtil;
 import me.xiaoying.bot.utils.SystemUtil;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -15,6 +14,7 @@ import java.util.logging.Logger;
  */
 public class BotServer implements Server {
     private final PluginManager pluginManager = new SimplePluginManager(this);
+    private final SimpleCommand simpleCommand = new SimpleCommand();
 
     public void enablePlugins() {
         Plugin[] plugins = this.pluginManager.getPlugins();
@@ -67,8 +67,14 @@ public class BotServer implements Server {
     }
 
     @Override
+    public SimpleCommand getPluginCommand() {
+        return this.simpleCommand;
+    }
+
+    @Override
     public void reload() {
-        pluginManager.clearPlugins();
+        this.pluginManager.clearPlugins();
+        this.simpleCommand.unregisters();
         loadPlugins();
         enablePlugins();
     }

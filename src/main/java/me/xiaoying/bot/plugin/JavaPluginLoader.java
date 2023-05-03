@@ -75,14 +75,6 @@ public class JavaPluginLoader implements PluginLoader {
 
         if (pluginConfig.getStringList("authors") != null)
             authors.addAll(pluginConfig.getStringList("authors"));
-
-        List<String> command;
-        try {
-            command = new ArrayList<>(pluginConfig.getChildrenNode("commands"));
-        } catch (Exception e) {
-            command = new ArrayList<>();
-        }
-
         return new PluginDescriptionFile(name, version, authors, main);
     }
 
