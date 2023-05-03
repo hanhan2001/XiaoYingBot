@@ -13,4 +13,22 @@ public class NumUtil {
     public static boolean isNum(String str) {
         return Character.isDigit(str.charAt(0));
     }
+
+    public static boolean isLong(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean isInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
