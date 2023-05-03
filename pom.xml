@@ -105,7 +105,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>20</version>
+            <version>21-ea+5</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/dnsjava/dnsjava -->
 <!--        <dependency>-->
