@@ -10,7 +10,7 @@ import java.util.*;
 
 public class YamlConfiguration implements FileGetter {
     private static String file;
-    private static HashMap properties = new HashMap<>();
+    private static HashMap<Object, Object> properties = new HashMap<>();
 
     public YamlConfiguration() {
 
@@ -19,20 +19,20 @@ public class YamlConfiguration implements FileGetter {
     private Object get(String key) {
         String separator = ".";
         String[] separatorKeys = null;
-        if (key.contains(separator)) {
+        if (key.contains(separator))
             separatorKeys = key.split("\\.");
-        } else {
+        else
             return properties.get(key);
-        }
+
         Map<String, Map<String, Object>> finalValue = new HashMap<>();
         for (int i = 0; i < separatorKeys.length - 1; i++) {
             if (i == 0) {
                 finalValue = (Map) properties.get(separatorKeys[i]);
                 continue;
             }
-            if (finalValue == null) {
+            if (finalValue == null)
                 break;
-            }
+
             finalValue = (Map) finalValue.get(separatorKeys[i]);
         }
         return finalValue == null ? null : finalValue.get(separatorKeys[separatorKeys.length - 1]);
@@ -44,8 +44,8 @@ public class YamlConfiguration implements FileGetter {
     }
 
     @Override
-    public List<String> getStringList(String path) {
-        return Collections.singletonList(String.valueOf(get(path)));
+    public List<String> getStringList(String key) {
+        return Collections.singletonList(String.valueOf(get(key)));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class YamlConfiguration implements FileGetter {
                 String changeNodeKey = strs[strs.length - 1];
 
                 boolean isFindNode = false;
-                FileInputStream fileInputStream = new FileInputStream(this.file);
+                FileInputStream fileInputStream = new FileInputStream(file);
                 InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, SystemUtil.getSystemEncoding());
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 StringBuilder content = new StringBuilder();
