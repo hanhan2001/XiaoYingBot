@@ -6,18 +6,38 @@ import me.xiaoying.bot.cache.Caches;
 import me.xiaoying.bot.constant.ConstantCommon;
 import me.xiaoying.bot.gui.MainUI;
 import net.mamoe.mirai.Bot;
+import net.mamoe.mirai.auth.QRCodeLoginListener;
 import net.mamoe.mirai.utils.DeviceVerificationRequests;
 import net.mamoe.mirai.utils.DeviceVerificationResult;
 import net.mamoe.mirai.utils.LoginSolver;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
-public class XiaoLoginSolver extends LoginSolver {
+public class XiaoLoginSolver extends LoginSolver implements QRCodeLoginListener {
+    @NotNull
+    @Override
+    public QRCodeLoginListener createQRCodeLoginListener(@NotNull Bot bot) {
+//        onSolvePicCaptcha()
+        System.out.println(1233);
+        return this;
+    }
+
     @Nullable
     @Override
     public Object onSolvePicCaptcha(@NotNull Bot bot, @NotNull byte[] bytes, @NotNull Continuation<? super String> continuation) {
+        System.out.println(123123123);
+        try {
+            OutputStream outputStream = Files.newOutputStream(Paths.get("C:/Users/Administrator/Desktop/123.png"));
+            outputStream.write(bytes, 0, bytes.length);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
@@ -40,7 +60,6 @@ public class XiaoLoginSolver extends LoginSolver {
         Caches.threadCaches.put("thread-login-solver", thread);
         ConstantCommon.QQ_AUTHORIZE_HREF = url;
 //        Scanner scan = new Scanner(System.in);
-
 
         while(thread.isAlive()) {
 
@@ -65,6 +84,7 @@ public class XiaoLoginSolver extends LoginSolver {
     @Nullable
     @Override
     public String onSolveUnsafeDeviceLoginVerify(@NotNull Bot bot, @NotNull String url, @NotNull Continuation<? super String> continuation) {
+        System.out.println(11123);
         return Objects.requireNonNull(onSolveSliderCaptcha(bot, url, continuation)).toString();
     }
 
@@ -83,4 +103,20 @@ public class XiaoLoginSolver extends LoginSolver {
         return super.onSolveDeviceVerification(bot, requests, $completion);
     }
 
+    @Override
+    public void onFetchQRCode(@NotNull Bot bot, @NotNull byte[] bytes) {
+        System.out.println(123123123);
+        try {
+            OutputStream outputStream = Files.newOutputStream(Paths.get("C:/Users/Administrator/Desktop/123.png"));
+            outputStream.write(bytes, 0, bytes.length);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void onStateChanged(@NotNull Bot bot, @NotNull QRCodeLoginListener.State state) {
+
+    }
 }
