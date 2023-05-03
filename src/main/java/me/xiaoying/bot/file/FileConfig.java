@@ -16,11 +16,13 @@ public class FileConfig {
      * BOT_PASSWORD         密码
      * BOT_PROTOCOl         设备协议
      * BOT_ENCRYPT          是否加密
+     * BOT_AUTHORIZE        登录方式
      */
     public static Long BOT_ACCOUNT;
     public static String BOT_PASSWORD,
             BOT_PROTOCOl,
-            BOT_DEVICES;
+            BOT_DEVICES,
+            BOT_AUTHORIZE;
 
     public static String SET_VARIABLE_DATA,
             SET_MESSAGE_LOG_GROUP,
@@ -43,6 +45,7 @@ public class FileConfig {
         BOT_DEVICES = config.getString("Bot.Devices");
         BOT_PASSWORD = config.getString("Bot.Password");
         BOT_PROTOCOl = config.getString("Bot.Protocol");
+        BOT_AUTHORIZE = config.getString("Bot.AuthorizeType");
 
         SET_VARIABLE_DATA = config.getString("Set.DateFormat");
         SET_MESSAGE_LOG_GROUP = config.getString("Set.LogFormat.Group");
