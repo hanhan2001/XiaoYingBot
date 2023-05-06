@@ -1,7 +1,5 @@
 package me.xiaoying.bot.command;
 
-import me.xiaoying.bot.plugin.Plugin;
-
 import java.util.List;
 
 /**

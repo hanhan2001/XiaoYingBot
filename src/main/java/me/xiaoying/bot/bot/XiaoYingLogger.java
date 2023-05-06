@@ -1,4 +1,4 @@
-package me.xiaoying.bot.api;
+package me.xiaoying.bot.bot;
 
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.utils.InfoUtil;
@@ -58,12 +58,15 @@ public class XiaoYingLogger implements MiraiLogger {
 
     @Override
     public void verbose(@Nullable String s) {
-
+        InfoUtil.sendMessage(InfoType.INFO, s);
     }
 
     @Override
     public void verbose(@Nullable String s, @Nullable Throwable throwable) {
-
+        InfoUtil.sendMessage(InfoType.INFO, s);
+        if (throwable == null)
+            return;
+        throwable.printStackTrace();
     }
 
     @Override

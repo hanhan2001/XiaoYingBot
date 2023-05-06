@@ -64,13 +64,16 @@ public class XiaoYingBot {
                 break;
         }
 
-        // 保存设备信息到文件deviceInfo.json文件里相当于是个设备认证信息
+        // 保存设备信息到文件 deviceInfo.json 文件里相当于是个设备认证信息
         bot.getConfiguration().fileBasedDeviceInfo(deviceInfo);
         bot.getConfiguration().setLoginSolver(new XiaoLoginSolver());
 
         // 取消日志
         bot.getConfiguration().noBotLog();
         bot.getConfiguration().noNetworkLog();
+
+        // 列表缓存
+        bot.getConfiguration().enableContactCache();
 
         // 协议选择
         switch (FileConfig.BOT_PROTOCOl) {
