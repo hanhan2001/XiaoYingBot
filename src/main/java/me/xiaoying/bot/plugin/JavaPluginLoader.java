@@ -216,9 +216,9 @@ public class JavaPluginLoader implements PluginLoader {
     Class<?> getClassByName(String name) {
         Class<?> cachedClass = this.classes.get(name);
 
-        if (cachedClass != null) {
+        if (cachedClass != null)
             return cachedClass;
-        }
+
         for (String current : this.loaders.keySet()) {
             PluginClassLoader loader = this.loaders.get(current);
 
@@ -226,22 +226,22 @@ public class JavaPluginLoader implements PluginLoader {
                 cachedClass = loader.findClass(name, false);
             } catch (ClassNotFoundException classNotFoundException) {
             }
-            if (cachedClass != null) {
+            if (cachedClass != null)
                 return cachedClass;
-            }
         }
 
         return null;
     }
 
     void setClass(String name, Class<?> clazz) {
-        if (!this.classes.containsKey(name)) {
-            this.classes.put(name, clazz);
+        if (this.classes.containsKey(name))
+            return;
 
-            if (ConfigurationSerializable.class.isAssignableFrom(clazz)) {
-                Class<? extends ConfigurationSerializable> serializable = clazz.asSubclass(ConfigurationSerializable.class);
-                ConfigurationSerialization.registerClass(serializable);
-            }
+        this.classes.put(name, clazz);
+
+        if (ConfigurationSerializable.class.isAssignableFrom(clazz)) {
+            Class<? extends ConfigurationSerializable> serializable = clazz.asSubclass(ConfigurationSerializable.class);
+            ConfigurationSerialization.registerClass(serializable);
         }
     }
 
@@ -261,30 +261,32 @@ public class JavaPluginLoader implements PluginLoader {
     public void disablePlugin(Plugin plugin) {
         Preconditions.isTrue(plugin instanceof JavaPlugin, "Plugin is not associated with this PluginLoader");
 
-        if (plugin.isEnabled()) {
-            String message = String.format("Disabling %s", plugin.getDescription().getName());
-            InfoUtil.sendMessage(message);
+        if (!plugin.isEnabled())
+            return;
+
+
+        String message = String.format("Disabling %s", plugin.getDescription().getName());
+        InfoUtil.sendMessage(message);
 
 //            this.server.getPluginManager().callEvent(new PluginDisableEvent(plugin));
 
-            JavaPlugin jPlugin = (JavaPlugin) plugin;
-            ClassLoader cloader = jPlugin.getClassLoader();
+        JavaPlugin jPlugin = (JavaPlugin) plugin;
+        ClassLoader cloader = jPlugin.getClassLoader();
 
-            try {
-                jPlugin.setEnabled(false);
-            } catch (Throwable ex) {
-                InfoUtil.sendMessage(InfoType.WARING, "Error occurred while disabling " + plugin.getDescription().getName() + " (Is it up to date?)\n" + ex.getMessage());
-            }
+        try {
+            jPlugin.setEnabled(false);
+        } catch (Throwable ex) {
+            InfoUtil.sendMessage(InfoType.WARING, "Error occurred while disabling " + plugin.getDescription().getName() + " (Is it up to date?)\n" + ex.getMessage());
+        }
 
-            this.loaders.remove(jPlugin.getDescription().getName());
+        this.loaders.remove(jPlugin.getDescription().getName());
 
-            if (cloader instanceof PluginClassLoader) {
-                PluginClassLoader loader = (PluginClassLoader) cloader;
-                Set<String> names = loader.getClasses();
+        if (cloader instanceof PluginClassLoader) {
+            PluginClassLoader loader = (PluginClassLoader) cloader;
+            Set<String> names = loader.getClasses();
 
-                for (String name : names)
-                    removeClass(name);
-            }
+            for (String name : names)
+                removeClass(name);
         }
     }
 }
