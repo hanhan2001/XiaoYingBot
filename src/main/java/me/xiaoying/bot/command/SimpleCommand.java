@@ -15,14 +15,6 @@ public class SimpleCommand {
      * @param plugin 来自插件
      */
     public void register(Command command, Plugin plugin) {
-//        List<PluginCommand> list;
-//        if (this.commandMap.get(plugin.getName()) != null)
-//            list = this.commandMap.get(plugin.getName());
-//        else
-//            list = new ArrayList<>();
-//
-//        list.add(new PluginCommand(command, null));
-//        this.commandMap.put(plugin.getName(), list);
         this.register(command, null, plugin);
     }
 
@@ -81,10 +73,11 @@ public class SimpleCommand {
 
         for (List<PluginCommand> value : this.commandMap.values()) {
             for (PluginCommand command1 : value) {
-                if (command1.getCommand().getName().equalsIgnoreCase(name)) {
-                    command = command1;
-                    break;
-                }
+                if (!command1.getCommand().getName().equalsIgnoreCase(name))
+                    continue;
+
+                command = command1;
+                break;
             }
         }
         return command;
@@ -97,10 +90,11 @@ public class SimpleCommand {
             return null;
 
         for (PluginCommand command1 : this.commandMap.get(plugin.getName())) {
-            if (command1.getCommand().getName().equalsIgnoreCase(name)) {
-                command = command1;
-                break;
-            }
+            if (!command1.getCommand().getName().equalsIgnoreCase(name))
+                continue;
+
+            command = command1;
+            break;
         }
         return command;
     }
