@@ -1,5 +1,6 @@
 package me.xiaoying.bot.entity;
 
+import me.xiaoying.bot.api.XiaoYing;
 import me.xiaoying.bot.bot.XiaoYingBot;
 import me.xiaoying.bot.handle.MessageHandle;
 import net.mamoe.mirai.contact.ContactList;
@@ -75,6 +76,10 @@ public class Group {
                 return true;
         }
         return false;
+    }
+
+    public boolean hasPermission(String permission) {
+        return XiaoYing.getPermissionService().hasPermission(this, permission);
     }
 
     public boolean contains(Member member) {

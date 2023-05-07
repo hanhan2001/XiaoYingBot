@@ -3,6 +3,7 @@ package me.xiaoying.bot;
 import me.xiaoying.bot.api.XiaoYing;
 import me.xiaoying.bot.bot.XiaoYingBot;
 import me.xiaoying.bot.file.FileConfig;
+import me.xiaoying.bot.file.FilePermission;
 import me.xiaoying.bot.handle.WebSocketHandle;
 import me.xiaoying.bot.server.BotServer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +32,7 @@ public class XiaoYingBotApplication {
 
     public static void initialize() {
         FileConfig.fileConfig();
+        FilePermission.filePermission();
 
         server = new BotServer();
         XiaoYing.setServer(server);

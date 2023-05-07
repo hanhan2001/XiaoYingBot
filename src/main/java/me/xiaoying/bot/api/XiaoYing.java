@@ -1,5 +1,6 @@
 package me.xiaoying.bot.api;
 
+import me.xiaoying.bot.permission.PermissionService;
 import me.xiaoying.bot.plugin.PluginManager;
 import me.xiaoying.bot.server.Server;
 
@@ -21,5 +22,9 @@ public class XiaoYing {
 
     public static PluginManager getPluginManager() {
         return server.getPluginManager();
+    }
+
+    public static PermissionService getPermissionService() {
+        return server.getPermissionService();
     }
 }
