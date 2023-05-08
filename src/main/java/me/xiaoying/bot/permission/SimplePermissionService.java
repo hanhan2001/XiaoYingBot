@@ -5,6 +5,11 @@ import me.xiaoying.bot.entity.User;
 
 public class SimplePermissionService implements PermissionService {
     @Override
+    public boolean isAdmin(User user) {
+        return false;
+    }
+
+    @Override
     public boolean hasPermission(User user, String permission) {
         return false;
     }

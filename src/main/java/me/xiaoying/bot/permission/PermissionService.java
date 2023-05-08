@@ -7,6 +7,8 @@ import me.xiaoying.bot.entity.User;
  * 接口 权限
  */
 public interface PermissionService {
+     boolean isAdmin(User user);
+
     boolean hasPermission(User user, String permission);
     boolean hasPermission(Group group, String permission);
 
