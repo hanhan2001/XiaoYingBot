@@ -2,6 +2,8 @@ package me.xiaoying.bot.server;
 
 import me.xiaoying.bot.command.SimpleCommand;
 import me.xiaoying.bot.enums.InfoType;
+import me.xiaoying.bot.permission.PermissionService;
+import me.xiaoying.bot.permission.SimplePermissionService;
 import me.xiaoying.bot.plugin.*;
 import me.xiaoying.bot.utils.InfoUtil;
 import me.xiaoying.bot.utils.SystemUtil;
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
 public class BotServer implements Server {
     private final PluginManager pluginManager = new SimplePluginManager(this);
     private final SimpleCommand simpleCommand = new SimpleCommand();
+    private PermissionService permissionService = new SimplePermissionService();
 
     public void enablePlugins() {
         Plugin[] plugins = this.pluginManager.getPlugins();
@@ -69,6 +72,16 @@ public class BotServer implements Server {
     @Override
     public SimpleCommand getPluginCommand() {
         return this.simpleCommand;
+    }
+
+    @Override
+    public PermissionService getPermissionService() {
+        return permissionService;
+    }
+
+    @Override
+    public void setPermissionService(PermissionService permissionService) {
+        this.permissionService = permissionService;
     }
 
     @Override

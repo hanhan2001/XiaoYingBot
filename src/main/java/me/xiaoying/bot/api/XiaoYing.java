@@ -1,5 +1,6 @@
 package me.xiaoying.bot.api;
 
+import me.xiaoying.bot.permission.PermissionService;
 import me.xiaoying.bot.plugin.PluginManager;
 import me.xiaoying.bot.server.Server;
 
@@ -17,6 +18,14 @@ public class XiaoYing {
             XiaoYing.server = server;
 //            server.getLogger().info("This server is running " + getName() + " version " + getVersion() + " (Implementing API version " + getBukkitVersion() + ")");
         }
+    }
+
+    public static void setPermissionService(PermissionService permissionService) {
+        server.setPermissionService(permissionService);
+    }
+
+    public static PermissionService getPermissionService() {
+        return server.getPermissionService();
     }
 
     public static PluginManager getPluginManager() {
