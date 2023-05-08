@@ -1,8 +1,8 @@
 package me.xiaoying.bot.entity;
 
+import me.xiaoying.bot.api.XiaoYing;
 import me.xiaoying.bot.bot.XiaoYingBot;
 import me.xiaoying.bot.handle.MessageHandle;
-import net.mamoe.mirai.contact.ContactList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,10 @@ public class Group {
         this.members = members;
         this.name = group.getName();
         this.owner = new Member(group.getOwner().getNameCard(), group.getOwner().getId());
+    }
+
+    public boolean hasPermission(String permission) {
+        return XiaoYing.getPermissionService().hasPermission(this, permission);
     }
 
     public long getId() {
