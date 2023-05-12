@@ -20,11 +20,15 @@ public class XiaoYing {
         }
     }
 
-    public static PluginManager getPluginManager() {
-        return server.getPluginManager();
+    public static void setPermissionService(PermissionService permissionService) {
+        server.setPermissionService(permissionService);
     }
 
     public static PermissionService getPermissionService() {
         return server.getPermissionService();
+    }
+
+    public static PluginManager getPluginManager() {
+        return server.getPluginManager();
     }
 }

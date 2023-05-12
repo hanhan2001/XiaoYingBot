@@ -3,7 +3,6 @@ package me.xiaoying.bot.entity;
 import me.xiaoying.bot.api.XiaoYing;
 import me.xiaoying.bot.bot.XiaoYingBot;
 import me.xiaoying.bot.handle.MessageHandle;
-import net.mamoe.mirai.contact.ContactList;
 
 import java.util.ArrayList;
 import java.util.List;

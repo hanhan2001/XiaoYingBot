@@ -92,8 +92,6 @@ public class BotServer implements Server {
         enablePlugins();
     }
 
-
-
     @Override
     public Logger getLogger() {
         return Logger.getLogger("BotServer");
