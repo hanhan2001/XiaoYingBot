@@ -12,6 +12,11 @@ public class SimplePermissionService implements PermissionService {
     Map<Group, Set<Permission>> groupPermissions = new HashMap<>();
 
     @Override
+    public boolean isOperator(User user) {
+        return false;
+    }
+
+    @Override
     public boolean isAdmin(User user) {
         return false;
     }
