@@ -36,32 +36,32 @@ public class SimplePermissionService implements PermissionService {
     }
 
     @Override
-    public void setPermission(User user, String permission) {
-
+    public boolean setPermission(User user, String permission) {
+        return false;
     }
 
     @Override
-    public void setPermission(Group group, User user, String permission) {
-
+    public boolean setPermission(Group group, User user, String permission) {
+        return false;
     }
 
     @Override
-    public void setPermission(Group group, String permission) {
-
+    public boolean setPermission(Group group, String permission) {
+        return false;
     }
 
     @Override
-    public void unsetPermission(User user, String permission) {
-
+    public boolean unsetPermission(User user, String permission) {
+        return false;
     }
 
     @Override
-    public void unsetPermission(Group group, User user, String permission) {
-
+    public boolean unsetPermission(Group group, User user, String permission) {
+        return false;
     }
 
     @Override
-    public void unsetPermission(Group group, String permission) {
-
+    public boolean unsetPermission(Group group, String permission) {
+        return false;
     }
 }
