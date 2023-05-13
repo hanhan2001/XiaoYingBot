@@ -10,6 +10,11 @@ public class User {
     long id;
     String name;
 
+    public User(net.mamoe.mirai.contact.User user) {
+        this.name = user.getNick();
+        this.id = user.getId();
+    }
+
     public User(String name, long id) {
         this.name = name;
         this.id = id;
