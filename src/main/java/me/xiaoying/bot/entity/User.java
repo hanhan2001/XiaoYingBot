@@ -1,6 +1,10 @@
 package me.xiaoying.bot.entity;
 
 import me.xiaoying.bot.api.XiaoYing;
+import me.xiaoying.bot.bot.XiaoYingBot;
+import me.xiaoying.bot.handle.MessageHandle;
+
+import java.util.Objects;
 
 public class User {
     long id;
@@ -13,6 +17,10 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public void sendMessage(String message) {
+        Objects.requireNonNull(XiaoYingBot.getBot().getStranger(this.id)).sendMessage(MessageHandle.StringToContent(message));
     }
 
     public boolean hasPermission(String permission) {
