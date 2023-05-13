@@ -6,8 +6,6 @@ import me.xiaoying.bot.entity.User;
  * 接口 权限
  */
 public interface PermissionService {
-    boolean isOperator(User user);
-
     boolean isAdmin(User user);
 
     boolean isAdmin(Group group, User user);
