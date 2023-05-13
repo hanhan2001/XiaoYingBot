@@ -28,9 +28,12 @@ public class User {
         Objects.requireNonNull(XiaoYingBot.getBot().getStranger(this.id)).sendMessage(MessageHandle.StringToContent(message));
     }
 
+    public boolean isAdmin() {
+        return XiaoYing.getPermissionService().isAdmin(this);
+    }
+
     public boolean hasPermission(String permission) {
-        XiaoYing.getPermissionService().hasPermission(this, permission);
-        return false;
+        return XiaoYing.getPermissionService().hasPermission(this, permission);
     }
 
     public String getName() {
