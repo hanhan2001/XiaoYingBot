@@ -2,7 +2,6 @@ package me.xiaoying.bot.listener;
 
 import me.xiaoying.bot.XiaoYingBotApplication;
 import me.xiaoying.bot.api.XiaoYing;
-import me.xiaoying.bot.command.PluginCommand;
 import me.xiaoying.bot.entity.CommandSender;
 import me.xiaoying.bot.entity.Group;
 import me.xiaoying.bot.entity.Member;

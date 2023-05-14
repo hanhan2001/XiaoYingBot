@@ -4,6 +4,7 @@ import me.xiaoying.bot.api.XiaoLoginSolver;
 import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.file.FileConfig;
 import me.xiaoying.bot.listener.BotEvents;
+import me.xiaoying.bot.listener.GroupEvent;
 import me.xiaoying.bot.listener.MessageEvents;
 import me.xiaoying.bot.utils.EncryptUtil;
 import me.xiaoying.bot.utils.InfoUtil;
@@ -33,6 +34,8 @@ public class XiaoYingBot {
     private MessageEvents messageEvents;
     @Autowired
     private BotEvents botEvents;
+    @Autowired
+    private GroupEvent groupEvents;
 
     // 账号
     private static final Long account = FileConfig.BOT_ACCOUNT;
@@ -110,14 +113,19 @@ public class XiaoYingBot {
 
         // 注册消息事件
         InfoUtil.sendMessage("注册消息事件");
+
         List<ListenerHost> events = Collections.singletonList(messageEvents);
-        for (ListenerHost event : events) {
+        for (ListenerHost event : events)
             GlobalEventChannel.INSTANCE.registerListenerHost(event);
-        }
+
         List<ListenerHost> botEvent = Collections.singletonList(botEvents);
-        for (ListenerHost event : botEvent) {
+        for (ListenerHost event : botEvent)
             GlobalEventChannel.INSTANCE.registerListenerHost(event);
-        }
+
+        List<ListenerHost> groupEvent = Collections.singletonList(botEvents);
+        for (ListenerHost event : groupEvent)
+            GlobalEventChannel.INSTANCE.registerListenerHost(event);
+
         InfoUtil.sendMessage("注册完成");
 
         // 设置https协议，已解决SSL peer shut down incorrectly的异常

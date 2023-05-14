@@ -20,19 +20,27 @@ Set:
   DateFormat: "yyyy/MM/dd-HH:mm:ss"
   #日志格式
   LogFormat:
-    #可用变量:
-    #     %date% 日期(格式受Config.yml内的Set.DateFormat控制)
-    #     %groupName%   群聊名称
-    #     %groupId%     群聊号码
-    #     %name%        用户名称
-    #     %qq%          用户号码
-    #     %msg%         消息内容
-    #群聊
-    Group: "[%date%][群聊]%groupName%(%groupId%)-%name%(%qq%)>> %msg%"
-    #私聊
-    Private: "[%date%][私聊]%name%(%qq%)>> %msg%"
-    #临时消息
-    Temp: "[%date%][临时]%name%(%qq%)>> %msg%"
+    #聊天消息
+    Message:
+      #可用变量:
+      #     %date% 日期(格式受Config.yml内的Set.DateFormat控制)
+      #     %groupName%   群聊名称
+      #     %groupId%     群聊号码
+      #     %name%        用户名称
+      #     %qq%          用户号码
+      #     %msg%         消息内容
+      #群聊
+      Group: "[%date%][群聊]%groupName%(%groupId%)-%name%(%qq%)>> %msg%"
+      #私聊
+      Private: "[%date%][私聊]%name%(%qq%)>> %msg%"
+      #临时消息
+      Temp: "[%date%][临时]%name%(%qq%)>> %msg%"
+    #群聊信息
+    Group:
+      #加入群聊
+      MemberJoin: "[%date%][用户加入群聊]%name%(%qq%) -- %groupName%(%groupId%)"
+      #退出群聊
+      MemberQuit: "[%date%][用户退出群聊]%name%(%qq%) -- %groupName%(%groupId%)"
 
 #指令头
 CommandHeads:

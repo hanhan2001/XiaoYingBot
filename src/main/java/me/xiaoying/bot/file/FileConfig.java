@@ -27,7 +27,9 @@ public class FileConfig {
     public static String SET_VARIABLE_DATA,
             SET_MESSAGE_LOG_GROUP,
             SET_MESSAGE_LOG_PRIVATE,
-            SET_MESSAGE_LOG_TEMP;
+            SET_MESSAGE_LOG_TEMP,
+            SET_GROUP_LOG_MEMBER_JOIN,
+            SET_GROUP_LOG_MEMBER_QUIT;
     public static boolean BOT_ENCRYPT;
 
     public static void fileConfig() {
@@ -48,9 +50,12 @@ public class FileConfig {
         BOT_AUTHORIZE = config.getString("Bot.AuthorizeType");
 
         SET_VARIABLE_DATA = config.getString("Set.DateFormat");
-        SET_MESSAGE_LOG_GROUP = config.getString("Set.LogFormat.Group");
-        SET_MESSAGE_LOG_PRIVATE = config.getString("Set.LogFormat.Private");
-        SET_MESSAGE_LOG_TEMP = config.getString("Set.LogFormat.Temp");
+        SET_MESSAGE_LOG_TEMP = config.getString("Set.LogFormat.Message.Temp");
+        SET_MESSAGE_LOG_GROUP = config.getString("Set.LogFormat.Message.Group");
+        SET_MESSAGE_LOG_PRIVATE = config.getString("Set.LogFormat.Message.Private");
+
+        SET_GROUP_LOG_MEMBER_JOIN = config.getString("Set.LogFormat.Group.MemberJoin");
+        SET_GROUP_LOG_MEMBER_QUIT = config.getString("Set.LogFormat.Group.MemberQuit");
 
         BOT_ENCRYPT = config.getBoolean("Bot.Encrypt");
     }
