@@ -41,6 +41,11 @@ public class SimplePermissionService implements PermissionService {
     }
 
     @Override
+    public boolean setPermission(String group, String permission) {
+        return false;
+    }
+
+    @Override
     public boolean setPermission(Group group, User user, String permission) {
         return false;
     }
@@ -52,6 +57,11 @@ public class SimplePermissionService implements PermissionService {
 
     @Override
     public boolean unsetPermission(User user, String permission) {
+        return false;
+    }
+
+    @Override
+    public boolean unsetPermission(String group, String permission) {
         return false;
     }
 

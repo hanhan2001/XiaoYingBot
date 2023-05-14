@@ -18,11 +18,15 @@ public interface PermissionService {
 
     boolean setPermission(User user, String permission);
 
+    boolean setPermission(String group, String permission);
+
     boolean setPermission(Group group, User user, String permission);
 
     boolean setPermission(Group group, String ggroup, String permission);
 
     boolean unsetPermission(User user, String permission);
+
+    boolean unsetPermission(String group, String permission);
 
     boolean unsetPermission(Group group, User user, String permission);
 
