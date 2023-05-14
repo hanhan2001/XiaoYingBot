@@ -20,11 +20,11 @@ public interface PermissionService {
 
     boolean setPermission(Group group, User user, String permission);
 
-    boolean setPermission(Group group, String permission);
+    boolean setPermission(Group group, String ggroup, String permission);
 
     boolean unsetPermission(User user, String permission);
 
     boolean unsetPermission(Group group, User user, String permission);
 
-    boolean unsetPermission(Group group, String permission);
+    boolean unsetPermission(Group group, String ggroup, String permission);
 }
