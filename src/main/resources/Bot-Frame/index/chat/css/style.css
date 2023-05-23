@@ -2,7 +2,8 @@
 	border-right: 2px solid #DDDDDD;
 }
 
-.content .content_list .content_list_search input {
+.content .content_list .content_list_search input,
+.content .content_chat .content_chat_box .content_chat_box_chat .chat input {
 	border: none;
 	border-radius: 10px;
 	outline: none;

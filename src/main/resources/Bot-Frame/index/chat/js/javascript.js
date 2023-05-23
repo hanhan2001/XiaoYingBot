@@ -9,16 +9,6 @@ var chatboxType = "into";
 window.onload = function() {
 	chatEntity = document.querySelector(chatClass);
 	titleEntity = document.querySelector(titleClass);
-
-	// ChatBox事件
-	chatEntity.addEventListener("animationend", () => {
-		// 当元素为进入时
-		if (chatEntity.style.display == "block" && chatboxType == "into") {
-			return;
-		}
-		titleEntity.style.display = "flex";
-		chatEntity.style.display = "none";
-	});
 }
 
 // function showChat() {
@@ -33,18 +23,8 @@ window.onload = function() {
 // }
 
 function showChat() {
-	chatboxType = "into";
-	chatEntity.style.animationDirection = "normal";
-	chatEntity.style.animationIterationCount = 1;
-
-	chatEntity.style.display = "block";
+	chatEntity.classList.contains("chat_on") ? chatEntity.classList.remove("chat_on") : chatEntity.classList.add("chat_on");
 }
-function showTitle() {
-	chatboxType = "out";
-	chatEntity.style.animationDirection = "reverse";
-	chatEntity.style.animationIterationCount = 3;
-}
-
 // // 用户界面
 // function setChatBox(user, type, display) {
 
