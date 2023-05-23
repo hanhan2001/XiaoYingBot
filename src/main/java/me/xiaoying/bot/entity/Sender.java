@@ -1,4 +1,4 @@
-package me.xiaoying.bot.contact;
+package me.xiaoying.bot.entity;
 
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.Member;
