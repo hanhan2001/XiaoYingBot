@@ -155,14 +155,12 @@
 .content .content_chat .content_chat_box .content_chat_box_chat .chat {
 	height: 45px;
 	display: flex;
-	background-color: #CCCCCC;
 	align-items: center;
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .chat div:nth-of-type(1) {
 	height: 36px;
 	width: 36px;
-	background-color: #AAAAAA;
 	border-radius: 100%;
 	position: absolute;
 	left: 5px;
@@ -170,7 +168,6 @@
 
 .content .content_chat .content_chat_box .content_chat_box_chat .chat div:nth-of-type(2) {
 	border-radius: 5px;
-	background-color: #AAAAAA;
 	height: 36px;
 	width: 45px;
 	position: absolute;
@@ -233,7 +230,6 @@
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat p {
-	background-color: #EEEEEE;
 	padding: 5px;
 	border-radius: 3px;
 	margin-top: 13px;

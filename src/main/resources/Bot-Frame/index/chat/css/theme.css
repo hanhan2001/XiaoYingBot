@@ -37,6 +37,22 @@
 	background-color: #EEEEEE;
 }
 
+.content .content_chat .content_chat_box .content_chat_box_chat .chat {
+	background-color: #CCCCCC;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .chat div:nth-of-type(1) {
+	background-color: #AAAAAA;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .chat div:nth-of-type(2) {
+	background-color: #AAAAAA;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat p {
+	background-color: #EEEEEE;
+}
+
 .content .content_list .content_list_list .content_list_list_user {
 	background-color: #EEEEEE;
 }
