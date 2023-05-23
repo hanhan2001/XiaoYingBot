@@ -1,0 +1,269 @@
+:root {
+	--chat-user-to-borderx: 10px;
+	--chat-user-to-bordery: 15px;
+}
+
+.content {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	position: relative;
+	overflow: hidden;
+}
+
+.content .content_tool {
+	width: 45px;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+}
+
+.content .content_list {
+	height: 100vh;
+	width: 280px;
+}
+
+.content .content_chat .content_chat_title {
+	height: 35px;
+	width: calc(100vw - 280px - 45px);
+	display: flex;
+	align-items: center;
+	position: relative;
+	min-width: 200px;
+}
+
+.content .content_chat .content_chat_title .content_chat_title_display {
+	padding-left: 20px;
+}
+
+.content .content_chat .content_chat_title .content_chat_title_display::before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 10px;
+	top: calc((100% - 10px) / 2 - (100% - 10px) / 4);
+	height: calc(100% - 10px);
+	border-radius: 5px;
+	width: 4px;
+	z-index: 10;
+	cursor: pointer;
+}
+
+.content .content_tool .buttons_user {
+	height: 10%;
+}
+
+.content .content_tool .buttons_tool {
+	height: 90%;
+}
+
+.content .content_list .content_list_search {
+	display: flex;
+	align-items: center;
+	height: 35px;
+	width: 100%;
+	position: relative;
+}
+
+.content .content_list .content_list_search input {
+	height: 70%;
+	width: 75%;
+	position: absolute;
+	left: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.content .content_list .content_list_list {
+	height: calc(100vh - 35px);
+	overflow-y: auto;
+}
+
+.content .content_list .content_list_list .content_list_list_user {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	height: 50px;
+	position: relative;
+	overflow: hidden;
+}
+
+.content .content_list .content_list_list .content_list_list_user .content_list_list_user_picture {
+	height: 40px;
+	width: 40px;
+	border-radius: 100%;
+	position: absolute;
+	left: 5px;
+}
+
+.content .content_list .content_list_list .content_list_list_user .username {
+	position: absolute;
+	left: 50px;
+	top: 5px;
+}
+
+.content .content_list .content_list_list .content_list_list_user .usercontent {
+	position: absolute;
+	left: 50px;
+	bottom: 5px;
+	font-size: 8px;
+}
+
+.content .content_list .content_list_list .content_list_list_user .usertime {
+	position: absolute;
+	right: 5px;
+	top: 8px;
+	font-size: 5px;
+}
+
+.content .content_chat .content_chat_box_title .img {
+	background-image: url('../img/user.svg');
+	background-size: cover;
+	height: 100px;
+	width: 100px;
+}
+.content .content_chat .content_chat_box_title {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.content .content_chat .content_chat_box_title p {
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat,
+.content .content_chat .content_chat_box .content_chat_box_title {
+	height: calc(100vh - 35px);
+	width: 100%;
+	position: absolute;
+}
+
+.content .content_chat .content_chat_box {
+	position: relative;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat {
+	position: absolute;
+	z-index: 10;
+	overflow-y: auto;
+/*	margin-left: 20vw;*/
+/*	opacity: 0;*/
+/*	transition: all 0.5s ease-in;*/
+    animation: INTO_RIGHT_TO_LEFT_VISIBLE 0.5s;
+}
+
+.chat_on {
+	margin-left: 0vw;
+	animation: INTO_RIGHT_TO_LEFT_VISIBLE 0.5s;
+/*	animation-fill-mode: forwards;*/
+}
+
+./*chat_on {
+	margin-left: 0px;
+	opacity: 1;
+	display: block;
+}
+*/
+.content .content_chat .content_chat_box .content_chat_box_chat > .other,
+.content .content_chat .content_chat_box .content_chat_box_chat > .self {
+	display: flex;
+	margin-top: var(--chat-user-to-bordery);
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat > .other {
+	margin-left: var(--chat-user-to-borderx);
+	justify-content: left;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat > .self {
+	margin-right: var(--chat-user-to-borderx);
+	justify-content: right;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .other_img,
+.content .content_chat .content_chat_box .content_chat_box_chat .self_img {
+	height: 40px;
+	width: 40px;
+	background-size: cover;
+	border-radius: 100%;
+	cursor: pointer;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat p {
+	background-color: #EEEEEE;
+	padding: 5px;
+	border-radius: 3px;
+	margin-top: 13px;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .other p {
+	margin-left: 6px;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .self p {
+	margin-right: 6px;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .other_img {
+	background-image: url("../img/user2.png");
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .self_img {
+	background-image: url("../img/user.jpg");
+}
+
+.button_search {
+	position: absolute;
+	right: 6px;
+	height: 70%;
+	width: 10%;
+}
+
+.button_user {
+	height: 35px;
+	width: 35px;
+	background-image: url("../img/user.jpg");
+	background-size: cover;
+	border-radius: 100%;
+	margin-top: 5px;
+	transition: all 0.1s;
+}
+
+.button_user:hover {
+	transform: translateX(1.5px);
+	transform: translateY(-1.5px);
+	height: 38px;
+	width: 38px;
+	cursor: pointer;
+}
+
+.button_more {
+	width: 5px;
+	height: 5px;
+	border-radius: 100%;
+	position: absolute;
+	right: 15px;
+}
+
+.button_more::before {
+	content: "";
+	display: block;
+	height: 5px;
+	width: 5px;
+	border-radius: 100%;
+	position: absolute;
+	top: -8px;
+}
+
+.button_more::after {
+	content: "";
+	display: block;
+	height: 5px;
+	width: 5px;
+	border-radius: 100%;
+	position: absolute;
+	top: 8px;
+}

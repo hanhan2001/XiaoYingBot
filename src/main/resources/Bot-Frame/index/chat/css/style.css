@@ -1,0 +1,42 @@
+.content .content_list {
+	border-right: 2px solid #DDDDDD;
+}
+
+.content .content_list .content_list_search input {
+	border: none;
+	border-radius: 10px;
+	outline: none;
+}
+
+.button_search {
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+.content .content_list .content_list_list .content_list_list_user {
+	cursor: pointer;
+	transition: all 0.1s;
+}
+
+.content .content_list .content_list_list .content_list_list_user:hover {
+	background-color: #DDDDDD;
+}
+
+.content .content_list .content_list_list .content_list_list_user:active {
+	background-color: #CCCCCC;
+}
+
+*::-webkit-scrollbar {
+	background-color: #EEEEEE;
+	position: absolute;
+	width: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #DDDDDD;
+	border-radius: 15px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: #CCCCCC;
+}

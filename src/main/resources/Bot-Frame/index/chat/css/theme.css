@@ -1,0 +1,74 @@
+* {
+	color: #666666;
+}
+
+.content .content_tool {
+	background-color: #AFAFAF;
+}
+
+.content {
+	background-color: #FDFDFD;
+}
+
+.content .content_list .content_list_search {
+	background-color: #CCCCCC;
+}
+
+.content .content_chat .content_chat_title {
+	background-color: #CCCCCC;
+}
+
+.content .content_chat .content_chat_title .content_chat_title_display::before {
+	transition: all 0.2s;
+	background-color: #DDDDDD;
+}
+.content .content_chat .content_chat_title .content_chat_title_display:hover::before {
+	background-color: #AAAAAA;
+}
+
+.content .content_list .content_list_search input {
+	background-color: #DDDDDD;
+	transition: all 0.2s;
+}
+
+.content .content_list .content_list_search input:focus {
+	background-color: #EEEEEE;
+}
+
+.content .content_list .content_list_list .content_list_list_user {
+	background-color: #EEEEEE;
+}
+
+.content .content_chat {
+	background-color: #EEEEEE;
+}
+
+.button_search {
+	background-image: url("../img/search.svg");
+	background-size: cover;
+	transition: all 0.1s;
+}
+
+.button_search:active {
+	background-color: #AAAAAA;
+}
+
+.button_more {
+	background-color: #DDDDDD;
+}
+
+.button_more::before {
+	background-color: #DDDDDD;
+}
+
+.button_more::after {
+	background-color: #DDDDDD;
+}
+
+.button_more:hover + .button_more::after + .button_more::before {
+	background-color: #DDDDDD;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat {
+	background-color: #BBBBBB;
+}

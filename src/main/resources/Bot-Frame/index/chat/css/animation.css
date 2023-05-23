@@ -1,0 +1,30 @@
+@keyframes INTO_RIGHT_TO_LEFT_VISIBLE {
+	0% {
+		opacity: 0;
+		margin-left: 20vw;
+	}
+	10% {
+		opacity: 0;
+	}
+	90% {
+		margin-left: 0px;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes OUTTO_LEFT_TO_RIGHT_VISIBLE {
+	0% {
+		opacity: 1;
+		margin-left: 0vw;
+	}
+	10% {
+		opacity: 1;
+	}
+	90% {
+		margin-left: 20vw;
+	}
+	100% {
+		opacity: 0;
+	}
+}
