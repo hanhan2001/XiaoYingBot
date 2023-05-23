@@ -3,10 +3,10 @@ package me.xiaoying.bot.event;
 import me.xiaoying.bot.entity.Group;
 import me.xiaoying.bot.entity.User;
 
-public class GroupJoinEvent extends GroupEvent {
+public class GroupQuitEvent extends GroupEvent {
     User user;
 
-    public GroupJoinEvent(Group group, User user) {
+    public GroupQuitEvent(Group group, User user) {
         super(group);
         this.user = user;
     }
