@@ -4,6 +4,6 @@
 	transition: all 0.5s;
 }
 
-.content {
+body {
 	overflow: hidden;
 }
