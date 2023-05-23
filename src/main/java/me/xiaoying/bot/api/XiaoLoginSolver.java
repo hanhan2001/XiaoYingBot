@@ -23,14 +23,12 @@ public class XiaoLoginSolver extends LoginSolver implements QRCodeLoginListener 
     @Override
     public QRCodeLoginListener createQRCodeLoginListener(@NotNull Bot bot) {
 //        onSolvePicCaptcha()
-        System.out.println(1233);
         return this;
     }
 
     @Nullable
     @Override
     public Object onSolvePicCaptcha(@NotNull Bot bot, @NotNull byte[] bytes, @NotNull Continuation<? super String> continuation) {
-        System.out.println(123123123);
         try {
             OutputStream outputStream = Files.newOutputStream(Paths.get("C:/Users/Administrator/Desktop/123.png"));
             outputStream.write(bytes, 0, bytes.length);
@@ -84,7 +82,6 @@ public class XiaoLoginSolver extends LoginSolver implements QRCodeLoginListener 
     @Nullable
     @Override
     public String onSolveUnsafeDeviceLoginVerify(@NotNull Bot bot, @NotNull String url, @NotNull Continuation<? super String> continuation) {
-        System.out.println(11123);
         return Objects.requireNonNull(onSolveSliderCaptcha(bot, url, continuation)).toString();
     }
 

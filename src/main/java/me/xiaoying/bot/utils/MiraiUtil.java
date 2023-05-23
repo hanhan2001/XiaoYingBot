@@ -17,7 +17,6 @@ public class MiraiUtil {
     public static MessageChain replace(MessageChain msg, String oldMsg, SingleMessage newMsg) {
         MessageChainBuilder result = new MessageChainBuilder();
         for (SingleMessage single : msg) {
-            System.out.println(result);
             if (!(single instanceof PlainText))
                 continue;
 

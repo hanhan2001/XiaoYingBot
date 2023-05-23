@@ -129,7 +129,6 @@ public class JavaPlugin extends PluginBase {
                 InfoUtil.sendMessage(InfoType.WARING, "Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
             }
         } catch (IOException ex) {
-            InfoUtil.sendMessage("Could not save " + outFile.getName() + " to " + outFile);
             ex.printStackTrace();
         }
     }

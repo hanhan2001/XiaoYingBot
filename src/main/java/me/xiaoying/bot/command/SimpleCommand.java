@@ -100,7 +100,6 @@ public class SimpleCommand {
     }
 
     public List<PluginCommand> getCommands(Plugin plugin) {
-        System.out.println(this.commandMap);
         if (this.commandMap.get(plugin.getName()) == null)
             return null;
 
