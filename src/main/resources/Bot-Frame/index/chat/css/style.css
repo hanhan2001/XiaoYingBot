@@ -16,7 +16,7 @@
 
 .content .content_list .content_list_list .content_list_list_user {
 	cursor: pointer;
-	transition: all 0.1s;
+	transition: all 0.2s;
 }
 
 .content .content_list .content_list_list .content_list_list_user:hover {
