@@ -1,37 +1,178 @@
-var chatClass = ".content .content_chat .content_chat_box_chat";
-var titleClass = ".content .content_chat .content_chat_box_title";
+let openBox = null;
+let openUser = null;
 
-var chatEntity = document.querySelector(chatClass);
-var titleEntity = document.querySelector(titleClass);
+let users = new Array();
 
 window.onload = function() {
-	chatEntity = document.querySelector(chatClass);
-	titleEntity = document.querySelector(titleClass);
+	users.push(730521870);
+	users.push(764932129);
+	users.push(2105103243);
+	users.push(3074166831);
+	users.push(939736629);
 
-
-　　$(document).keyup(function(event){ 
-　　　　if (event.keyCode === 13){
-			sendMessage();
-　　　　} 
-　　}); 
-	// window.addEventListener("resize", function() {
-	// 	let displayBox = document.querySelector(".content .content_chat .content_chat_box .content_chat_box_chat .display");
-	// 	displayBox.scrollTop = displayBox.scrollHeight;
-	// });
+　　$(document).keyup(function(event){
+		if (event.keyCode != 13) {
+			return;
+		}
+		sendMessage(openUser);
+　　});
 }
 
-function showChat() {
-	chatEntity.classList.contains("chat_on") ? chatEntity.classList.remove("chat_on") : chatEntity.classList.add("chat_on");
+/**
+ * 显示聊天界面
+ * 
+ * @param id 联系人id
+ * */
+function showChat(id) {
+	console.log(users)
+	if (!users.includes(id))
+		throw new Error("Cannt find this user");
+
+	if (openBox != null && openUser != id)
+		closeChat();
+
+	let userChatBox = document.querySelector(".content .content_chat .content_chat_box .user_" + id);
+	userChatBox.classList.add("chat_on");
+	openUser = id;
+	openBox = userChatBox;
+	document.querySelector(".content .content_chat .content_chat_title .content_chat_title_display").innerHTML = document.querySelector(".content .content_list .content_list_list .user_" + id + " .username").textContent;
 }
 
-function sendMessage() {
-	let content = document.querySelector(".content .content_chat .content_chat_box .content_chat_box_chat .chat input");
-	let chatbox = "<div class='self'><p>%text%</p><div class='self_img'></div></div>".replace("%text%", content.value);
-	
-	content.value = null;
-	let displayBox = document.querySelector(".content .content_chat .content_chat_box .content_chat_box_chat .display");
+/**
+ * 关闭聊天界面
+ * */
+function closeChat() {
+	if (openBox == null)
+		return;
+
+	openBox.classList.remove("chat_on");
+	document.querySelector(".content .content_chat .content_chat_title .content_chat_title_display").innerHTML = "主界面"
+
+	openBox = null;
+	openUser = null;
+}
+
+/**
+ * 创建联系人
+ * 
+ * @param name 名称
+ * @param id 联系人id
+ * */
+function newChat(name, id) {
+	if (users.includes(id))
+		throw new Error("Already has this user, please change id value");
+
+	users.push(id);
+
+	// 用户列表
+	let userList = document.querySelector(".content .content_list .content_list_list");
+	let time = new Date();
+	let userEntity =
+		"<div class='content_list_list_user user_" + id + "' onclick='showChat(" + id + ")'>" +
+			"<div class='content_list_list_user_picture' style='background-image: url(img/user.jpg); background-size: cover;'></div>" +
+			"<p class='username'>" + name + "</p>" +
+			"<p class='usercontent'></p>" +
+			"<p class='usertime'>" + time.getHours() + ":" + time.getMinutes()  + "</p>" +
+		"</div>";
+
+	userList.insertAdjacentHTML("beforeend", userEntity);
+
+	// 聊天框
+	let chatBox = document.querySelector(".content .content_chat .content_chat_box");
+	let chatEntity = 
+		"<div class='content_chat_box_chat user_" + id + "'>" + 
+			"<div class='display'></div>" +
+			"<div class='chat'>" +
+				"<div></div>" +
+				"<input type='' name='' placeholder='输入内容'>" + 
+				"<div onclick='sendMessage(" + id + ")'>发送</div>" +
+			"</div>"+
+		"</div>";
+
+	chatBox.insertAdjacentHTML("beforeend", chatEntity);
+}
+
+/** 移除联系人
+ * 
+ * @param id 联系人id
+ * */
+function removeChat(id) {
+	if (!users.includes(id))
+		throw new Error("Cannt find this user");
+
+	// 用户列表
+	let userList = document.querySelector(".content .content_list .content_list_list");
+	userList.removeChild(userList.querySelector(".user_" + id));
+
+	// 聊天框
+	let chatBox = document.querySelector(".content .content_chat .content_chat_box");
+	chatBox.removeChild(chatBox.querySelector(".user_" + id));
+
+	removeArrayListValue(users, id);
+}
+
+/** 
+ * 发送消息
+ * 
+ * @param id 联系人id
+ * @param message 内容
+ * */
+function sendMessage(id) {
+	if (!users.includes(id))
+		throw new Error("Cannt find this user");
+
+	let content = document.querySelector(".content .content_chat .content_chat_box .user_" + id + " .chat input");
+	let chatbox = 
+		"<div class='self'>" +
+			"<p>" + content.value + "</p>" +
+			"<div class='self_img'></div>" +
+		"</div>";
+
+	let displayBox = document.querySelector(".content .content_chat .content_chat_box .user_" + id + " .display");
 	displayBox.insertAdjacentHTML("beforeend", chatbox);
-	let second = 0.2;
-	let distance = displayBox.scrollHeight - displayBox.scrollTop;
 	displayBox.scrollTop = displayBox.scrollHeight;
+
+	document.querySelector(".content .content_list .content_list_list .user_" + id + " .usercontent").textContent = content.value;
+	content.value = null;
+}
+
+/** 
+ * 获取消息
+ * 
+ * @param id 联系人id
+ * @param message 内容
+ * */
+function getMessage(id, message) {
+	if (!users.includes(id))
+		throw new Error("Cannt find this user");
+
+	let chatbox = 
+		"<div class='other'>" +
+			"<div class='other_img'></div>" +
+			"<p>" + message + "</p>" +
+		"</div>";
+
+	let displayBox = document.querySelector(".content .content_chat .content_chat_box .user_" + id + " .display");
+	displayBox.insertAdjacentHTML("beforeend", chatbox);
+	displayBox.scrollTop = displayBox.scrollHeight;
+
+	document.querySelector(".content .content_list .content_list_list .user_" + id + " .usercontent").textContent = message;
+}
+
+/**
+ * 根据值移除 ArrayList 中的元素
+ * 
+ * @param list 列表
+ * @param value 值
+ * */
+function removeArrayListValue(list, value) {
+	if (!users.includes(id))
+		throw new Error("Cannt find this value on this list");
+
+	for (let i = 0; i < list.length; i++) {
+		if (list[i] != value)
+			continue;
+
+		list.splice(i, 1);
+	}
 }

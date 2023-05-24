@@ -23,6 +23,14 @@
 	background-color: #DDDDDD;
 }
 
+.content .content_chat .content_chat_box .content_chat_box_chat .chat div:nth-of-type(2):hover {
+	background-color: #DDDDDD;
+}
+
+.content .content_chat .content_chat_box .content_chat_box_chat .chat div:nth-of-type(2):active {
+	background-color: #BBBBBB;
+}
+
 .content .content_list .content_list_list .content_list_list_user:active {
 	background-color: #CCCCCC;
 }
