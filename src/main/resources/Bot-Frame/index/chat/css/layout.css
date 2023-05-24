@@ -153,9 +153,11 @@
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .chat {
+	user-select: none;
 	height: 45px;
 	display: flex;
 	align-items: center;
+	cursor: pointer;
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .chat div:nth-of-type(1) {
@@ -208,6 +210,7 @@
 .content .content_chat .content_chat_box .content_chat_box_chat .display > .self {
 	display: flex;
 	margin-top: var(--chat-user-to-bordery);
+	margin-bottom: var(--chat-user-to-bordery);
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .display> .other {
@@ -237,10 +240,14 @@
 
 .content .content_chat .content_chat_box .content_chat_box_chat .other p {
 	margin-left: 6px;
+	word-break: break-all;
+	max-width: 80%;
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .self p {
 	margin-right: 6px;
+	word-break: break-all;
+	max-width: 80%;
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .other_img {
