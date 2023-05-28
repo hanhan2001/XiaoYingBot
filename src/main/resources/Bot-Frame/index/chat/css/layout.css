@@ -152,6 +152,7 @@
 	height: calc(100vh - 80px);
 	width: 100%;
 	overflow-y: auto;
+	min-width: 100px;
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .chat {
@@ -202,6 +203,7 @@
 	margin-left: 20px;
 	opacity: 0;
 	transition: all 0.2s ease-in;
+	min-width: 200px;
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat.chat_on {
@@ -255,7 +257,7 @@
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .other_img {
-	background-image: url("../img/user2.png");
+/*	background-image: url("../img/user2.png");*/
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .self_img {
