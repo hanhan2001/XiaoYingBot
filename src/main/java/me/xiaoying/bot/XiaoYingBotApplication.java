@@ -17,12 +17,13 @@ import java.util.concurrent.ScheduledExecutorService;
 @SpringBootApplication
 public class XiaoYingBotApplication {
     public static BotServer server;
+    public static WebSocketHandle webSocketHandle;
     public static ScheduledExecutorService executor = Executors.newScheduledThreadPool(50);
 
     public static void main(String[] args) {
         initialize();
 
-        WebSocketHandle webSocketHandle = new WebSocketHandle(new InetSocketAddress(6501));
+        webSocketHandle = new WebSocketHandle(new InetSocketAddress(6501));
         webSocketHandle.setConnectionLostTimeout(0);
         webSocketHandle.start();
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");

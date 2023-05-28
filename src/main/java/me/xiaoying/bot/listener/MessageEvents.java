@@ -5,7 +5,10 @@ import me.xiaoying.bot.api.XiaoYing;
 import me.xiaoying.bot.entity.CommandSender;
 import me.xiaoying.bot.entity.Group;
 import me.xiaoying.bot.entity.Member;
+import me.xiaoying.bot.entity.User;
 import me.xiaoying.bot.file.FileConfig;
+import me.xiaoying.bot.handle.webhandle.FriendMessageHandle;
+import me.xiaoying.bot.handle.webhandle.GroupMessageHandle;
 import me.xiaoying.bot.plugin.Plugin;
 import me.xiaoying.bot.utils.*;
 import net.mamoe.mirai.event.EventHandler;
@@ -76,6 +79,7 @@ public class MessageEvents extends SimpleListenerHost {
             }
         }
 
+        XiaoYingBotApplication.webSocketHandle.sendMessage(new GroupMessageHandle(new Group(event.getGroup()), new User(event.getSender()), event.getMessage().contentToString()));
         XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.GroupMessageEvent(new Group(event.getGroup()), new Member(event.getSenderName(), event.getSender().getId()), event.getMessage()));
         //事件拦截 防止everywhere消息事件再次处理
         event.intercept();
@@ -120,7 +124,7 @@ public class MessageEvents extends SimpleListenerHost {
         log = log.replace("%msg%", event.getMessage().contentToString());
         System.out.println(log.replace("\n" , "     \n"));
 
-
+        XiaoYingBotApplication.webSocketHandle.sendMessage(new FriendMessageHandle(new User(event.getUser()), event.getMessage().contentToString()));
         XiaoYingBotApplication.server.getPluginManager().callEvent(new me.xiaoying.bot.event.FriendMessageEvent(event.getUser(), event));
         //事件拦截 防止everywhere消息事件再次处理
         event.intercept();
