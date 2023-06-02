@@ -1,6 +1,6 @@
 :root {
 	--chat-user-to-borderx: 10px;
-	--chat-user-to-bordery: 15px;
+	--chat-user-to-bordery: 25px;
 }
 
 .content {
@@ -212,9 +212,21 @@
 	margin-left: 0px;
 }
 
+.content .content_chat .content_chat_box .content_chat_box_chat .display > .other lable,
+.content .content_chat .content_chat_box .content_chat_box_chat .display > .self lable {
+	font-size: 5px;
+	position: absolute;
+}
+
+
+.content .content_chat .content_chat_box .content_chat_box_chat .display > .other lable {
+	left: 45px;
+}
+
 .content .content_chat .content_chat_box .content_chat_box_chat .display > .other,
 .content .content_chat .content_chat_box .content_chat_box_chat .display > .self {
 	display: flex;
+	position: relative;
 	margin-top: var(--chat-user-to-bordery);
 	margin-bottom: var(--chat-user-to-bordery);
 }
@@ -241,7 +253,7 @@
 .content .content_chat .content_chat_box .content_chat_box_chat p {
 	padding: 5px;
 	border-radius: 3px;
-	margin-top: 13px;
+	margin-top: 20px;
 }
 
 .content .content_chat .content_chat_box .content_chat_box_chat .other p {

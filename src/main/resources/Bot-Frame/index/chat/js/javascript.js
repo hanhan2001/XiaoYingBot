@@ -291,6 +291,7 @@ function getGroupMessage(id, user, username, message) {
 	let chatbox = 
 		"<div class='other'>" +
 			"<div class='other_img' style='background-image: url(https://q.qlogo.cn/g?b=qq&nk=" + user + "&s=100); background-size: cover;'></div>" +
+			"<lable class='name'>" + username + "</lable>" +
 			"<p>" + message + "</p>" +
 		"</div>";
 	message = message.replace("<br>", "");
