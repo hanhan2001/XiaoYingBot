@@ -16,6 +16,13 @@ ws.onmessage = function(e){
    }
 
    let type = json.type;
+   if (type == "Self") {
+      console.log(333);
+      let id = json.id;
+      let name = json.name;
+      let image = json.selfImage;
+      setSelfImage(image);
+   }
    if (type == "FriendMessage") {
       console.log(123);
       let message = json.message;

@@ -5,6 +5,8 @@ let openType = null;
 let users = new Array();
 let groups = new Array();
 
+let userImage;
+
 window.onload = function() {
 　　$(document).keyup(function(event){
 		if (event.keyCode != 13 || openBox == null) {
@@ -212,7 +214,7 @@ function sendMessage(id) {
 	let chatbox = 
 		"<div class='self'>" +
 			"<p>" + content.value + "</p>" +
-			"<div class='self_img'></div>" +
+			"<div class='self_img' style='background-image: url(" + userImage + ")'></div>" +
 		"</div>";
 
 	let displayBox = document.querySelector(".content .content_chat .content_chat_box .user_" + id + " .display");
@@ -246,7 +248,7 @@ function sendGroupMessage(id) {
 	let chatbox = 
 		"<div class='self'>" +
 			"<p>" + content.value + "</p>" +
-			"<div class='self_img'></div>" +
+			"<div class='self_img' style='background-image: url(" + userImage + ")'></div>" +
 		"</div>";
 
 	let displayBox = document.querySelector(".content .content_chat .content_chat_box .group_" + id + " .display");
@@ -338,6 +340,7 @@ function removeArrayListValue(list, value) {
 	}
 }
 
-function test() {
-	new ChatEntity(100,100).test();
+function setSelfImage(url) {
+	document.querySelector(".button_user").style.backgroundImage = "url(" + url + ")";
+	userImage = url;
 }

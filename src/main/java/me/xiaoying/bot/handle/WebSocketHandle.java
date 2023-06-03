@@ -1,12 +1,12 @@
 package me.xiaoying.bot.handle;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import me.xiaoying.bot.bot.XiaoYingBot;
 import me.xiaoying.bot.cache.Caches;
 import me.xiaoying.bot.constant.ConstantCommon;
 import me.xiaoying.bot.entity.Friend;
 import me.xiaoying.bot.entity.Group;
-import me.xiaoying.bot.entity.User;
+import me.xiaoying.bot.handle.webhandle.SelfHandle;
 import me.xiaoying.bot.handle.webhandle.SubWebHandle;
 import me.xiaoying.bot.utils.JSONUtil;
 import org.java_websocket.WebSocket;
@@ -28,6 +28,7 @@ public class WebSocketHandle extends WebSocketServer {
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         this.webSocket = webSocket;
+        this.webSocket.send(new SelfHandle(XiaoYingBot.getBot()).getMessage());
     }
 
     @Override
@@ -39,7 +40,6 @@ public class WebSocketHandle extends WebSocketServer {
     public void onMessage(WebSocket webSocket, String s) {
         loginConfirm(s);
 
-        System.out.println(s);
         if (!JSONUtil.isJSON(s))
             return;
 
