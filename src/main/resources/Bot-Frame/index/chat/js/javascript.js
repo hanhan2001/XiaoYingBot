@@ -221,6 +221,12 @@ function sendMessage(id) {
 
 	document.querySelector(".content .content_list .content_list_list .user_" + id + " .usertime").textContent = time.getHours() + ":" + time.getMinutes();
 	document.querySelector(".content .content_list .content_list_list .user_" + id + " .usercontent").textContent = content.value;
+
+
+	console.log(new ChatEntity("FriendMessage", openUser, content.value).getMessage());
+
+	ws.send(new ChatEntity("FriendMessage", openUser, content.value).getMessage());
+
 	content.value = null;
 }
 
@@ -249,6 +255,9 @@ function sendGroupMessage(id) {
 
 	document.querySelector(".content .content_list .content_list_list .group_" + id + " .usertime").textContent = time.getHours() + ":" + time.getMinutes();
 	document.querySelector(".content .content_list .content_list_list .group_" + id + " .usercontent").textContent = content.value;
+
+	ws.send(new ChatEntity("GroupMessage", openUser, content.value).getMessage());
+
 	content.value = null;
 }
 
@@ -327,4 +336,8 @@ function removeArrayListValue(list, value) {
 
 		list.splice(i, 1);
 	}
+}
+
+function test() {
+	new ChatEntity(100,100).test();
 }
