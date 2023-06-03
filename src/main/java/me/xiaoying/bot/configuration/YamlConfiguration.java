@@ -85,7 +85,8 @@ public class YamlConfiguration implements FileGetter {
                 int nodesSpaceSize = 0;
                 while ((text = bufferedReader.readLine()) != null) {
                     // 检测一级节点
-                    if (text.equalsIgnoreCase(strs[getNodeSize] + ":") && !isFindNode) isFindNode = true;
+                    if (text.equalsIgnoreCase(strs[getNodeSize] + ":") && !isFindNode)
+                        isFindNode = true;
                     if (isFindNode) {
                         String changeText = StringUtil.removeStartingAllSpace(text);
                         if (changeText.startsWith(strs[getNodeSize] + ":") && StringUtil.getStartingSpaceSize(strs[getNodeSize]) >= nodesSpaceSize) {
@@ -248,6 +249,7 @@ public class YamlConfiguration implements FileGetter {
             try {
                 YamlConfiguration.file = file.getPath();
                 properties = yaml.loadAs(in, HashMap.class);
+                properties.replaceAll((k, v) -> String.valueOf(v));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -260,6 +262,7 @@ public class YamlConfiguration implements FileGetter {
     public static YamlConfiguration loadConfiguration(String file) {
         Yaml yaml = new Yaml();
         properties = yaml.loadAs(file, HashMap.class);
+        properties.replaceAll((k, v) -> String.valueOf(v));
         return new YamlConfiguration();
     }
 }
