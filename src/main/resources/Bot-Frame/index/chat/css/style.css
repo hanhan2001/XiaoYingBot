@@ -3,7 +3,8 @@
 }
 
 .content .content_list .content_list_search input,
-.content .content_chat .content_chat_box .content_chat_box_chat .chat input {
+.content .content_chat .content_chat_box .content_chat_box_chat .chat input,
+.content .content_chat .content_chat_box .content_chat_box_chat .chat textarea {
 	border: none;
 	border-radius: 10px;
 	outline: none;

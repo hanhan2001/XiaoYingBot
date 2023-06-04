@@ -6,6 +6,7 @@ let users = new Array();
 let groups = new Array();
 
 let userImage;
+let popup = null;
 
 window.onload = function() {
 　　$(document).keyup(function(event){
@@ -84,6 +85,8 @@ function newGroupChat(name, id) {
 	if (groups.includes(id))
 		throw new Error("Already has this group, please change id value");
 
+	console.log(123);
+
 	groups.push(id);
 
 	// 用户列表
@@ -110,7 +113,7 @@ function newGroupChat(name, id) {
 			"<div class='chat'>" +
 				"<div></div>" +
 				"<input type='' name='' placeholder='输入内容'>" + 
-				"<div onclick='sendMessage(" + id + ")'>发送</div>" +
+				"<div onclick='sendGroupMessage(" + id + ")'>发送</div>" +
 			"</div>"+
 		"</div>";
 
@@ -209,8 +212,11 @@ function sendMessage(id) {
 		throw new Error("Cannt find this user");
 
 	let time = new Date();
-
 	let content = document.querySelector(".content .content_chat .content_chat_box .user_" + id + " .chat input");
+
+	if (content.value == false)
+		return;
+
 	let chatbox = 
 		"<div class='self'>" +
 			"<p>" + content.value + "</p>" +
@@ -225,9 +231,9 @@ function sendMessage(id) {
 	document.querySelector(".content .content_list .content_list_list .user_" + id + " .usercontent").textContent = content.value;
 
 
-	console.log(new ChatEntity("FriendMessage", openUser, content.value).getMessage());
+	console.log(new ChatEntity("FriendMessage", openUser, content.value.replaceAll("<br>", "\n")).getMessage());
 
-	ws.send(new ChatEntity("FriendMessage", openUser, content.value).getMessage());
+	ws.send(new ChatEntity("FriendMessage", openUser, content.value.replaceAll("<br>", "\n")).getMessage());
 
 	content.value = null;
 }
@@ -243,8 +249,13 @@ function sendGroupMessage(id) {
 		throw new Error("Cannt find this user");
 
 	let time = new Date();
-
 	let content = document.querySelector(".content .content_chat .content_chat_box .group_" + id + " .chat input");
+
+	if (content.value == false)
+		return;
+
+	content.value = content.value.replaceAll("<br>", "\n");
+
 	let chatbox = 
 		"<div class='self'>" +
 			"<p>" + content.value + "</p>" +
@@ -258,7 +269,7 @@ function sendGroupMessage(id) {
 	document.querySelector(".content .content_list .content_list_list .group_" + id + " .usertime").textContent = time.getHours() + ":" + time.getMinutes();
 	document.querySelector(".content .content_list .content_list_list .group_" + id + " .usercontent").textContent = content.value;
 
-	ws.send(new ChatEntity("GroupMessage", openUser, content.value).getMessage());
+	ws.send(new ChatEntity("GroupMessage", openUser, content.value.replaceAll("<br>", "\n")).getMessage());
 
 	content.value = null;
 }
@@ -343,4 +354,31 @@ function removeArrayListValue(list, value) {
 function setSelfImage(url) {
 	document.querySelector(".button_user").style.backgroundImage = "url(" + url + ")";
 	userImage = url;
+}
+
+/**
+ * 显示弹窗信息
+ * 
+ * @param type 弹窗类型
+ * @param message 消息
+ * @param ms 显示毫秒
+ * */
+function sendPopup(type, message, ms) {
+	let box;
+	if (type == "info") {
+		box = document.querySelector(".popup .info");
+		if (popup != null)
+			return;
+		box.style.display = "block";
+		content = document.querySelector(".popup .info p");
+		content.innerHTML = message;
+		// box.classList.add("topto");
+
+		popup = setTimeout(() => {
+			// box.classList.remove("topto");
+			box.style.display = "none";
+			popup = null;
+			clearTimeout(popup);
+		}, ms);
+	}
 }

@@ -28,3 +28,25 @@
 		opacity: 0;
 	}
 }
+
+@keyframes INTO_MARGIN_TOP_50_VISIBLE {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		margin-top: 50px;
+		opacity: 1;
+	}
+	50% {
+		margin-top: 50px;
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+		display: none;
+	}
+	100% {
+		opacity: 0;
+		display: none;
+	}
+}

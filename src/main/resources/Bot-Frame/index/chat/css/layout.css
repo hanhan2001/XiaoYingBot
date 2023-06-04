@@ -192,6 +192,15 @@
 	position: absolute;
 	left: 36px;
 }
+.content .content_chat .content_chat_box .content_chat_box_chat .chat textarea {
+	height: 36px;
+	width: calc(100% - 55px - 65px);
+	margin-left: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	position: absolute;
+	left: 36px;
+}
 
 .content .content_chat .content_chat_box {
 	position: relative;
@@ -268,12 +277,27 @@
 	max-width: 80%;
 }
 
-.content .content_chat .content_chat_box .content_chat_box_chat .other_img {
-/*	background-image: url("../img/user2.png");*/
+.popup {
+	width: 100vw;
+	display: flex;
+	position: absolute;
+	justify-content: center;
 }
 
-.content .content_chat .content_chat_box .content_chat_box_chat .self_img {
-/*	background-image: url("../img/user.jpg");*/
+.popup .info {
+	display: none;
+	position: absolute;
+/*	transition: all 0.3s ease-in;*/
+	animation: INTO_MARGIN_TOP_50_VISIBLE 3.5s;
+	z-index: 50;
+}
+
+.popup .info p {
+	padding: 5px;
+	border-radius: 3px;
+	box-shadow: 0 0 5px #AAAAAA;
+	z-index: 50;
+	background-color: white;
 }
 
 .button_search {
@@ -286,7 +310,6 @@
 .button_user {
 	height: 35px;
 	width: 35px;
-/*	background-image: url("../img/user.jpg");*/
 	background-size: cover;
 	border-radius: 100%;
 	margin-top: 5px;
