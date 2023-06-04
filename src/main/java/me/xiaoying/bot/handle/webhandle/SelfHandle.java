@@ -15,11 +15,11 @@ public class SelfHandle extends SubWebHandle {
 
     @Override
     public String getMessage() {
-        return "{" +
-                "\"type\": \"Self\"," +
-                "\"id\": \"" + this.id + "\"," +
-                "\"name\": \"" + this.name + "\"," +
-                "\"selfImage\": \"" + selfImage + "\"" +
+        return "{\n" +
+                "\"type\": \"Self\",\n" +
+                "\"id\": \"" + this.id + "\",\n" +
+                "\"name\": \"" + this.name + "\",\n" +
+                "\"selfImage\": \"" + selfImage + "\"\n" +
                 "}";
     }
 }
