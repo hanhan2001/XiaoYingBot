@@ -253,7 +253,7 @@ public class YamlConfiguration implements FileGetter {
 
                 for (Object o : properties.keySet()) {
                     Object value = null;
-                    if (o instanceof Long)
+                    if (o instanceof Long || o instanceof Integer)
                         value = properties.get(o);
 
                     if (value == null)
@@ -277,7 +277,7 @@ public class YamlConfiguration implements FileGetter {
 
         for (Object o : properties.keySet()) {
             Object value = null;
-            if (o instanceof Long)
+            if (o instanceof Long || o instanceof Integer)
                 value = properties.get(o);
 
             if (value == null)
