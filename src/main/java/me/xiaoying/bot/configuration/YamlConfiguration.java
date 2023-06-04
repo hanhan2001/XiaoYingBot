@@ -27,6 +27,7 @@ public class YamlConfiguration implements FileGetter {
         Map<String, Map<String, Object>> finalValue = new HashMap<>();
         for (int i = 0; i < separatorKeys.length - 1; i++) {
             if (i == 0) {
+                System.out.println(properties.get(separatorKeys[i]) + "    ____________________");
                 finalValue = (Map) properties.get(separatorKeys[i]);
                 continue;
             }
@@ -249,7 +250,18 @@ public class YamlConfiguration implements FileGetter {
             try {
                 YamlConfiguration.file = file.getPath();
                 properties = yaml.loadAs(in, HashMap.class);
-                properties.replaceAll((k, v) -> String.valueOf(v));
+
+                for (Object o : properties.keySet()) {
+                    Object value = null;
+                    if (o instanceof Long)
+                        value = properties.get(o);
+
+                    if (value == null)
+                        continue;
+
+                    properties.remove(o);
+                    properties.put(o.toString(), value);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -262,7 +274,18 @@ public class YamlConfiguration implements FileGetter {
     public static YamlConfiguration loadConfiguration(String file) {
         Yaml yaml = new Yaml();
         properties = yaml.loadAs(file, HashMap.class);
-        properties.replaceAll((k, v) -> String.valueOf(v));
+
+        for (Object o : properties.keySet()) {
+            Object value = null;
+            if (o instanceof Long)
+                value = properties.get(o);
+
+            if (value == null)
+                continue;
+
+            properties.remove(o);
+            properties.put(o.toString(), value);
+        }
         return new YamlConfiguration();
     }
 }
