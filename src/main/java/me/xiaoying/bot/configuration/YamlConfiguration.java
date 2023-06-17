@@ -143,41 +143,23 @@ public class YamlConfiguration implements FileGetter {
      * @return 子节点列表
      */
     public List<String> getChildrenNode(String key) {
-        List<String> allNodes = new ArrayList<>();
-
-        boolean alreadyInList = false;
-
-        int brackets = 0;
-        String content = Objects.requireNonNull(this.get(key)).toString();
-        content = StringUtil.removeSomeString(content, 0);
-        content = StringUtil.removeSomeString(content, content.length() - 1);
-        String[] strings = content.split(", ");
-        for (String string : strings) {
-            if (string.contains("{")) {
-                if (brackets <= 0) allNodes.add(StringUtil.removeBehindEqual(string));
-                brackets = StringUtil.getKeySize(string, "{", false);
-            }
-
-            if (string.contains("}")) {
-                brackets = brackets - StringUtil.getKeySize(string, "}", false);
-                continue;
-            }
-
-            if (brackets <= 0) {
-                for (String str : allNodes) {
-                    if (str.equalsIgnoreCase(string)) {
-                        alreadyInList = true;
-                        break;
-                    } else if (alreadyInList) {
-                        alreadyInList = false;
-                        break;
-                    }
+        List<String> allNodes;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            HashMap<String, Map<String, Object>> map = new Yaml().loadAs(fileInputStream, HashMap.class);
+            Map<String, Object> map1 = new HashMap<>();
+            String[] strings = key.split("\\.");
+            for (int i = 0; i < strings.length; i++) {
+                if (i == 0) {
+                    map1 = map.get(strings[i]);
+                    continue;
                 }
-                if (!alreadyInList) {
-                    allNodes.add(StringUtil.removeBehindEqual(string));
-                    alreadyInList = false;
-                }
+
+                map1 = (Map<String, Object>) map1.get(strings[i]);
             }
+            allNodes = new ArrayList<>(map1.keySet());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return allNodes;
     }
@@ -190,54 +172,10 @@ public class YamlConfiguration implements FileGetter {
     public List<String> getChildrenNode() {
         List<String> allNodes = new ArrayList<>();
 
-        boolean alreadyInList = false;
-
-        int brackets = 0;
-        Yaml yaml = new Yaml();
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
-            properties = yaml.loadAs(fileInputStream, HashMap.class);
-            String content = String.valueOf(properties);
-            content = StringUtil.removeSomeString(content, 0);
-            content = StringUtil.removeSomeString(content, content.length() - 1);
-            String[] strings = content.split(", ");
-            for (String string : strings) {
-                if (string.contains("{")) {
-                    if (brackets <= 0) allNodes.add(StringUtil.removeBehindEqual(string));
-                    brackets = brackets + StringUtil.getKeySize(string, "{", false);
-                }
-
-                if (string.contains("[")) {
-                    if (brackets <= 0) allNodes.add(StringUtil.removeBehindEqual(string));
-                    brackets = brackets + StringUtil.getKeySize(string, "[", false);
-                }
-
-                if (string.contains("}")) {
-                    brackets = brackets - StringUtil.getKeySize(string, "}", false);
-                    continue;
-                }
-
-                if (string.contains("]")) {
-                    brackets = brackets - StringUtil.getKeySize(string, "]", false);
-                    continue;
-                }
-
-                if (brackets <= 0) {
-                    for (String str : allNodes) {
-                        if (str.equalsIgnoreCase(string)) {
-                            alreadyInList = true;
-                            break;
-                        } else if (alreadyInList) {
-                            alreadyInList = false;
-                            break;
-                        }
-                    }
-                    if (!alreadyInList) {
-                        allNodes.add(StringUtil.removeBehindEqual(string));
-                        alreadyInList = false;
-                    }
-                }
-            }
+            HashMap<String, Map<String, Object>> map = new Yaml().loadAs(fileInputStream, HashMap.class);
+            allNodes.addAll(map.keySet());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
