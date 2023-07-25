@@ -189,28 +189,29 @@ public class JavaPluginLoader implements PluginLoader {
     public void enablePlugin(Plugin plugin) {
         Preconditions.isTrue(plugin instanceof JavaPlugin, "Plugin is not associated with this PluginLoader");
 
-        if (!plugin.isEnabled()) {
-            String message = String.format("Enabling %s %s by %s", plugin.getDescription().getName(), plugin.getDescription().getVersion(), plugin.getDescription().getAuthors());
-            InfoUtil.sendMessage(message);
+        if (plugin.isEnabled())
+            return;
 
-            JavaPlugin jPlugin = (JavaPlugin) plugin;
+        String message = String.format("Enabling %s %s by %s", plugin.getDescription().getName(), plugin.getDescription().getVersion(), plugin.getDescription().getAuthors());
+        InfoUtil.sendMessage(message);
 
-            String pluginName = jPlugin.getDescription().getName();
+        JavaPlugin jPlugin = (JavaPlugin) plugin;
 
-            if (!this.loaders.containsKey(pluginName)) {
-                this.loaders.put(pluginName, (PluginClassLoader) jPlugin.getClassLoader());
-            }
+        String pluginName = jPlugin.getDescription().getName();
 
-            try {
-                jPlugin.setEnabled(true);
-            } catch (Throwable ex) {
-                InfoUtil.sendMessage(InfoType.WARING, "Error occurred while enabling " + plugin.getDescription().getName() + " (Is it up to date?)\n" + ex.getMessage());
-                ex.printStackTrace();
-            }
+        if (!this.loaders.containsKey(pluginName)) {
+            this.loaders.put(pluginName, (PluginClassLoader) jPlugin.getClassLoader());
+        }
+
+        try {
+            jPlugin.setEnabled(true);
+        } catch (Throwable ex) {
+            InfoUtil.sendMessage(InfoType.WARING, "Error occurred while enabling " + plugin.getDescription().getName() + " (Is it up to date?)\n" + ex.getMessage());
+            ex.printStackTrace();
+        }
 
 
 //            this.server.getPluginManager().callEvent((Event) new PluginEnableEvent(plugin));
-        }
     }
 
     Class<?> getClassByName(String name) {

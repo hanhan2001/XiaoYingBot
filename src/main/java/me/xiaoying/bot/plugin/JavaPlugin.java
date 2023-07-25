@@ -24,25 +24,25 @@ public class JavaPlugin extends PluginBase {
     private Server server = null;
     private JavaPluginLoader loader;
     private PluginDescriptionFile description;
-    private File configFile = null;
+    private final File configFile = null;
     private File file;
     private File dataFolder;
     private ClassLoader classLoader;
 
     public JavaPlugin() {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        if (!(classLoader instanceof PluginClassLoader)) {
+        if (!(classLoader instanceof PluginClassLoader))
             throw new IllegalStateException("JavaPlugin requires " + PluginClassLoader.class.getName());
-        } else {
+        else
             ((PluginClassLoader)classLoader).initialize(this);
-        }
     }
 
     protected JavaPlugin(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        if (classLoader instanceof PluginClassLoader) {
+
+        if (classLoader instanceof PluginClassLoader)
             throw new IllegalStateException("Cannot use initialization constructor at runtime");
-        }
+
         this.init(loader, description, dataFolder, file, classLoader);
     }
 
@@ -90,44 +90,41 @@ public class JavaPlugin extends PluginBase {
 
     @Override
     public void saveDefaultConfig() {
-        if (!this.configFile.exists()) {
-            saveResource("config.yml", false);
-        }
+        if (this.configFile.exists())
+            return;
+
+        saveResource("config.yml", false);
     }
 
     @Override
     public void saveResource(String resourcePath, boolean replace) {
-        if (resourcePath == null || resourcePath.equals("")) {
+        if (resourcePath == null || resourcePath.equals(""))
             throw new IllegalArgumentException("ResourcePath cannot be null or empty");
-        }
 
         resourcePath = resourcePath.replace('\\', '/');
         InputStream in = getResource(resourcePath);
-        if (in == null) {
+        if (in == null)
             throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found in " + this.file);
-        }
 
         File outFile = new File(this.dataFolder, resourcePath);
         int lastIndex = resourcePath.lastIndexOf('/');
         File outDir = new File(this.dataFolder, resourcePath.substring(0, Math.max(lastIndex, 0)));
 
-        if (!outDir.exists()) {
+        if (!outDir.exists())
             outDir.mkdirs();
-        }
 
         try {
-            if (!outFile.exists() || replace) {
-                OutputStream out = Files.newOutputStream(outFile.toPath());
-                byte[] buf = new byte[in.available()];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-                out.close();
-                in.close();
-            } else {
+            if (outFile.exists() && !replace)
                 InfoUtil.sendMessage(InfoType.WARING, "Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
-            }
+
+            OutputStream out = Files.newOutputStream(outFile.toPath());
+            byte[] buf = new byte[in.available()];
+            int len;
+            while ((len = in.read(buf)) > 0)
+                out.write(buf, 0, len);
+
+            out.close();
+            in.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

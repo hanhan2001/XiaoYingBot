@@ -26,7 +26,7 @@ public class PluginClassLoader extends URLClassLoader {
     final JavaPlugin plugin;
     private JavaPlugin pluginInit;
     private IllegalStateException pluginState;
-    private final Map<String, Class<?>> classes = new ConcurrentHashMap<String, Class<?>>();
+    private final Map<String, Class<?>> classes = new ConcurrentHashMap<>();
 
     public PluginClassLoader(JavaPluginLoader loader, ClassLoader parent, PluginDescriptionFile description, File dataFolder, File file, ClassLoader libraryLoader) throws IOException, InvalidPluginException, MalformedURLException {
         super(new URL[]{file.toURI().toURL()}, parent);
@@ -41,14 +41,14 @@ public class PluginClassLoader extends URLClassLoader {
         this.libraryLoader = libraryLoader;
 
         try {
-            Class jarClass;
+            Class<?> jarClass;
             try {
                 jarClass = Class.forName(description.getMain(), true, this);
             } catch (ClassNotFoundException var11) {
                 throw new InvalidPluginException("Cannot find main class `" + description.getMain() + "'", var11);
             }
 
-            Class pluginClass;
+            Class<?> pluginClass;
             try {
                 pluginClass = jarClass.asSubclass(JavaPlugin.class);
             } catch (ClassCastException var10) {
@@ -78,14 +78,13 @@ public class PluginClassLoader extends URLClassLoader {
         Class<?> result = this.classes.get(name);
 
         if (result == null) {
-            if (checkGlobal) {
+            if (checkGlobal)
                 result = this.loader.getClassByName(name);
-            }
+
             if (result == null) {
                 result = super.findClass(name);
-                if (result != null) {
+                if (result != null)
                     this.loader.setClass(name, result);
-                }
             }
             this.classes.put(name, result);
         }
