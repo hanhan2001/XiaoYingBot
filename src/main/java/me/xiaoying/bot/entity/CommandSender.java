@@ -38,6 +38,13 @@ public class CommandSender extends User {
     }
 
     public User getUser() {
-        return new User(Objects.requireNonNull(XiaoYingBot.getBot().getStranger(this.id)));
+        User user = null;
+        try {
+            user = new User(Objects.requireNonNull(XiaoYingBot.getBot().getFriend(this.id)));
+        } catch (Exception e) {
+            user = new User(Objects.requireNonNull(XiaoYingBot.getBot().getStranger(this.id)));
+        }
+
+        return user;
     }
 }

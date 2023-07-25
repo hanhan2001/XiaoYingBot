@@ -28,7 +28,11 @@ public class User {
     }
 
     public void sendMessage(String message) {
-        Objects.requireNonNull(XiaoYingBot.getBot().getStranger(this.id)).sendMessage(MessageHandle.StringToContent(message));
+        try {
+            Objects.requireNonNull(XiaoYingBot.getBot().getFriend(this.id)).sendMessage(MessageHandle.StringToContent(message));
+        } catch (Exception e) {
+            Objects.requireNonNull(XiaoYingBot.getBot().getStranger(this.id)).sendMessage(MessageHandle.StringToContent(message));
+        }
     }
 
     public boolean isAdmin() {
