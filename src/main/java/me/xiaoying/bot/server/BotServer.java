@@ -1,7 +1,6 @@
 package me.xiaoying.bot.server;
 
 import me.xiaoying.bot.command.SimpleCommand;
-import me.xiaoying.bot.enums.InfoType;
 import me.xiaoying.bot.permission.PermissionService;
 import me.xiaoying.bot.permission.SimplePermissionService;
 import me.xiaoying.bot.plugin.*;
