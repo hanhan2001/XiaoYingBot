@@ -34,7 +34,6 @@ public class BotServer implements Server {
         try {
             this.pluginManager.enablePlugin(plugin);
         } catch (Throwable ex) {
-            InfoUtil.sendMessage(InfoType.WARING, ex.getMessage() + " loading " + plugin.getDescription().getName() + " (Is it up to date?)");
             ex.printStackTrace();
         }
     }
@@ -58,7 +57,6 @@ public class BotServer implements Server {
 
                 plugin.onLoad();
             } catch (Throwable ex) {
-                InfoUtil.sendMessage(InfoType.WARING, ex.getMessage() + " initializing " + plugin.getDescription().getName() + " (Is it up to date?)");
                 ex.printStackTrace();
             }
         }

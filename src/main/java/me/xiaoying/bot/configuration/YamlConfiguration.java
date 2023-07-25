@@ -27,7 +27,6 @@ public class YamlConfiguration implements FileGetter {
         Map<String, Map<String, Object>> finalValue = new HashMap<>();
         for (int i = 0; i < separatorKeys.length - 1; i++) {
             if (i == 0) {
-                System.out.println(properties.get(separatorKeys[i]) + "    ____________________");
                 finalValue = (Map) properties.get(separatorKeys[i]);
                 continue;
             }
